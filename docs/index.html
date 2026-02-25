@@ -38,6 +38,8 @@
   <style>
     body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
     html{scroll-behavior:smooth}
+    /* Ocultar scrollbar del carrusel */
+    #featuredViewport::-webkit-scrollbar { display: none; }
   </style>
 </head>
 <body class="bg-og.black text-white min-h-screen">
@@ -164,7 +166,7 @@
         <div>
           <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Favoritos</p>
           <h2 class="mt-2 text-3xl sm:text-4xl font-black text-white">Destacados OG</h2>
-          <p class="mt-3 text-white/80 max-w-2xl">Una selección de los productos que más llaman la atención.</p>
+          <p class="mt-3 text-white/80 max-w-2xl">Desliza en el celular o usa los botones en PC.</p>
         </div>
 
         <div class="hidden sm:flex items-center gap-2">
@@ -173,8 +175,12 @@
         </div>
       </div>
 
-      <div class="mt-8 overflow-hidden">
-        <div id="featuredTrack" class="flex gap-4 transition-transform duration-500 ease-out will-change-transform"></div>
+      <div class="mt-8">
+        <div
+          id="featuredViewport"
+          class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-3
+                 [-ms-overflow-style:none] [scrollbar-width:none]"
+        ></div>
       </div>
     </div>
   </section>
@@ -239,10 +245,6 @@
               Ver Instagram
             </a>
           </div>
-
-          <div class="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
-            <p class="text-sm text-white/80">¿Quieres una recomendación rápida? Escríbenos y te ayudamos a elegir según tu antojo.</p>
-          </div>
         </div>
 
         <div id="contacto" class="rounded-3xl border border-white/10 bg-og.panel p-6 sm:p-8">
@@ -257,10 +259,6 @@
             class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-og.red px-5 py-3 font-semibold text-white hover:bg-red-700 transition">
             Hablar por WhatsApp
           </a>
-
-          <div class="mt-4 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/80">
-            Incluye: fecha, hora, cantidad de personas y si deseas decoración.
-          </div>
         </div>
       </div>
     </div>
@@ -286,10 +284,12 @@
           <div class="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
             <iframe
               title="Mapa OG Burger"
-              class="h-52 w-full"
+              class="h-56 w-full"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2276.793293616296!2d-74.11608471402627!3d4.703362368997547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b184e8fd67b%3A0xea012beaa7c8954d!2sO.G.%20Burger!5e0!3m2!1ses!2sco!4v1772053767414!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>">
+              style="border:0;"
+              allowfullscreen
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2276.793293616296!2d-74.11608471402627!3d4.703362368997547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b184e8fd67b%3A0xea012beaa7c8954d!2sO.G.%20Burger!5e0!3m2!1ses!2sco!4v1772053767414!5m2!1ses!2sco">
             </iframe>
           </div>
           <a class="mt-3 inline-flex items-center rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white hover:border-red-500 hover:text-red-300 transition"
@@ -300,15 +300,9 @@
         </div>
 
         <div class="flex flex-col gap-2 text-sm">
-          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
-            Instagram
-          </a>
-          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
-            WhatsApp
-          </a>
-          <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
-            Cómo llegar
-          </a>
+          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">Instagram</a>
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">WhatsApp</a>
+          <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">Cómo llegar</a>
           <a href="/admin/login" class="text-white/25 hover:text-white/60 transition" aria-label="Acceso administrativo" title="Acceso administrativo">·</a>
         </div>
       </div>
@@ -323,7 +317,7 @@
     <span class="hidden sm:inline">Pedir por WhatsApp</span>
   </a>
 
-  <!-- Modal responsive (sólido, no transparente raro) -->
+  <!-- Modal -->
   <div id="productModal" class="fixed inset-0 z-[9999] hidden">
     <div id="modalOverlay" class="absolute inset-0 bg-black/90 backdrop-blur-sm"></div>
 
@@ -405,7 +399,6 @@
 
     let currentCategory = "hamburguesas";
     let currentSearch = "";
-    let featuredIndex = 0;
 
     function money(n) {
       return new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(n);
@@ -497,12 +490,15 @@
 
     function renderFeatured() {
       const featured = menuData.productos.filter((p) => p.destacado);
-      $("featuredTrack").innerHTML = featured.map((item) => {
+      const vp = $("featuredViewport");
+
+      vp.innerHTML = featured.map((item) => {
         const nombre = escapeHtml(item.nombre);
         const imgSrc = escapeHtml(item.imagen || "");
         const desc = escapeHtml(item.descripcion || "Producto destacado OG Burger");
+
         return `
-          <article class="min-w-[85%] sm:min-w-[48%] lg:min-w-[32%] rounded-2xl border border-white/10 bg-og.panel p-4">
+          <article class="snap-start shrink-0 w-[85%] sm:w-[48%] lg:w-[32%] rounded-2xl border border-white/10 bg-og.panel p-4">
             <div class="overflow-hidden rounded-xl border border-white/10 bg-black/30">
               <img src="${imgSrc}" alt="${nombre}" class="h-48 w-full object-cover" loading="lazy"
                 onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
@@ -518,31 +514,14 @@
           </article>
         `;
       }).join("");
-      updateFeaturedPosition();
     }
 
-    function updateFeaturedPosition() {
-      const track = $("featuredTrack");
-      const cards = track.children;
-      if (!cards.length) return;
-      const maxIndex = cards.length - 1;
-      featuredIndex = Math.max(0, Math.min(featuredIndex, maxIndex));
-      const cardWidth = cards[0].offsetWidth + 16;
-      track.style.transform = `translateX(-${featuredIndex * cardWidth}px)`;
-    }
-
-    function nextFeatured() {
-      const total = $("featuredTrack").children.length;
-      if (!total) return;
-      featuredIndex = (featuredIndex + 1) % total;
-      updateFeaturedPosition();
-    }
-
-    function prevFeatured() {
-      const total = $("featuredTrack").children.length;
-      if (!total) return;
-      featuredIndex = (featuredIndex - 1 + total) % total;
-      updateFeaturedPosition();
+    function featuredScrollBy(direction) {
+      const vp = $("featuredViewport");
+      if (!vp) return;
+      const card = vp.querySelector("article");
+      const step = card ? card.getBoundingClientRect().width + 16 : vp.clientWidth * 0.85;
+      vp.scrollBy({ left: direction * step, behavior: "smooth" });
     }
 
     function openProductModalByItem(item) {
@@ -569,15 +548,12 @@
       };
 
       $("modalOrderBtn").href = buildWhatsAppLink(`Hola OG Burger, quiero pedir: ${item.nombre}`);
-
       $("productModal").classList.remove("hidden");
       document.body.classList.add("overflow-hidden");
     }
 
     function closeProductModal() {
-      const modal = $("productModal");
-      if (!modal) return;
-      modal.classList.add("hidden");
+      $("productModal")?.classList.add("hidden");
       document.body.classList.remove("overflow-hidden");
     }
 
@@ -601,9 +577,17 @@
         renderMenuGrid();
       });
 
-      $("nextFeatured")?.addEventListener("click", nextFeatured);
-      $("prevFeatured")?.addEventListener("click", prevFeatured);
-      window.addEventListener("resize", updateFeaturedPosition);
+      $("nextFeatured")?.addEventListener("click", () => featuredScrollBy(1));
+      $("prevFeatured")?.addEventListener("click", () => featuredScrollBy(-1));
+
+      // Wheel horizontal en PC (trackpad/rueda) dentro del carrusel
+      $("featuredViewport")?.addEventListener("wheel", (e) => {
+        // Solo si el usuario intenta bajar/subir, lo convertimos a scroll horizontal
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          e.currentTarget.scrollBy({ left: e.deltaY, behavior: "auto" });
+        }
+      }, { passive: false });
 
       document.addEventListener("click", (e) => {
         const btn = e.target.closest("button[data-view]");
