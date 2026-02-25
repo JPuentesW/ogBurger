@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG Burger | 100% Carne 200% Sabor</title>
+  <meta name="description" content="OG Burger: hamburguesas, perros y bebidas. Conoce nuestro menú y haz tu pedido por WhatsApp." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            og: {
+              black: "#050505",
+              black2: "#0B0B0B",
+              panel: "#121212",
+              panel2: "#1A1A1A",
+              red: "#C1121F",
+              redDark: "#8B0E17"
+            }
+          },
+          boxShadow: { og: "0 12px 30px rgba(193,18,31,.28)" },
+          animation: {
+            floatSlow: "floatSlow 6s ease-in-out infinite",
+            pulseSoft: "pulseSoft 2.8s ease-in-out infinite"
+          },
+          keyframes: {
+            floatSlow: { "0%, 100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-8px)" } },
+            pulseSoft: { "0%, 100%": { opacity: "1" }, "50%": { opacity: ".75" } }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
+    html{scroll-behavior:smooth}
+  </style>
+</head>
+<body class="bg-og.black text-white min-h-screen">
+
+  <div class="fixed inset-0 -z-10 overflow-hidden bg-og.black">
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-og.black2 to-black"></div>
+    <div class="absolute -top-24 -left-20 h-72 w-72 rounded-full bg-og.red/20 blur-3xl"></div>
+    <div class="absolute top-1/3 -right-16 h-80 w-80 rounded-full bg-red-700/20 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-og.redDark/20 blur-3xl"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <a href="#inicio" class="flex items-center gap-3">
+          <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 shadow-og overflow-hidden">
+            <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold leading-none text-white">OG Burger</p>
+            <p class="text-xs text-white/70">100% Carne 200% Sabor</p>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm text-white/90">
+          <a href="#menu" class="hover:text-red-400 transition">Menú</a>
+          <a href="#destacados" class="hover:text-red-400 transition">Destacados</a>
+          <a href="#ubicacion" class="hover:text-red-400 transition">Ubicación</a>
+          <a href="#contacto" class="hover:text-red-400 transition">Celebraciones</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white hover:border-red-500 hover:text-red-300 transition">
+            Instagram
+          </a>
+          <button id="mobileMenuBtn"
+            class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 p-2 text-white hover:border-red-500 transition"
+            aria-label="Abrir menú">☰</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden pb-4">
+        <div class="rounded-2xl border border-white/10 bg-og.panel p-3 flex flex-col gap-2 text-sm">
+          <a href="#menu" class="rounded-lg px-3 py-2 hover:bg-white/5">Menú</a>
+          <a href="#destacados" class="rounded-lg px-3 py-2 hover:bg-white/5">Destacados</a>
+          <a href="#ubicacion" class="rounded-lg px-3 py-2 hover:bg-white/5">Ubicación</a>
+          <a href="#contacto" class="rounded-lg px-3 py-2 hover:bg-white/5">Celebraciones</a>
+          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="rounded-lg px-3 py-2 hover:bg-white/5">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="inicio" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <div class="inline-flex items-center rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-200">
+            🍔 Hamburguesas • 🌭 Perros • 🥤 Bebidas
+          </div>
+
+          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white">
+            OG Burger
+            <span class="block text-red-500">Sabor con actitud</span>
+          </h1>
+
+          <p class="mt-5 max-w-xl text-base sm:text-lg text-white/85 leading-relaxed">
+            Descubre nuestras hamburguesas, perros y bebidas. Pide por WhatsApp o visítanos y disfruta una experiencia OG.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="#menu" class="inline-flex items-center justify-center rounded-xl bg-og.red px-6 py-3 font-bold text-white hover:bg-red-700 transition shadow-og">
+              Ver menú
+            </a>
+            <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
+              class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white hover:border-red-500 hover:text-red-300 transition"
+              target="_blank" rel="noopener noreferrer">
+              Pedir por WhatsApp
+            </a>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-6 text-sm text-white/75">
+            <div>📍 Engativá · Álamos Norte</div>
+            <div>🛵 Domicilios</div>
+            <div>🔥 Hecho con actitud</div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="rounded-3xl border border-white/10 bg-og.panel p-4 shadow-2xl">
+            <div class="relative overflow-hidden rounded-2xl border border-white/10">
+              <img src="/img/hero-burger.jpg" alt="Hamburguesa OG Burger" class="aspect-[4/5] w-full object-cover"
+                onerror="this.src='img/og-bestia.jpg';" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+
+              <div class="absolute top-4 left-4 h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-white p-2 shadow-og animate-floatSlow grid place-items-center">
+                <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+                  onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-xl font-black text-black&quot;>OG</span>';" />
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4">
+                <div class="rounded-2xl border border-white/10 bg-black/70 p-4 backdrop-blur">
+                  <p class="text-xs text-white/70 uppercase tracking-widest">OG Burger</p>
+                  <p class="mt-1 text-lg sm:text-xl font-bold text-white">Pide tu favorito hoy</p>
+                  <p class="text-sm text-white/80">Combos, clásicos y opciones con full sabor.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button id="floatingOrderBtn"
+            class="absolute -bottom-4 -right-4 rounded-2xl border border-white/10 bg-og.red px-4 py-3 text-sm font-bold text-white shadow-og hover:bg-red-700 transition animate-pulseSoft"
+            type="button">Pedir ahora</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="destacados" class="py-12 sm:py-16 border-t border-white/10 bg-black/30">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Favoritos</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-black text-white">Destacados OG</h2>
+          <p class="mt-3 text-white/80 max-w-2xl">Una selección de los productos que más llaman la atención.</p>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-2">
+          <button id="prevFeatured" class="rounded-xl border border-white/20 bg-black/30 px-3 py-2 hover:border-red-500 transition">←</button>
+          <button id="nextFeatured" class="rounded-xl border border-white/20 bg-black/30 px-3 py-2 hover:border-red-500 transition">→</button>
+        </div>
+      </div>
+
+      <div class="mt-8 overflow-hidden">
+        <div id="featuredTrack" class="flex gap-4 transition-transform duration-500 ease-out will-change-transform"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="py-14 sm:py-20 border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div>
+          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Carta</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl font-black text-white">Nuestro menú</h2>
+          <p class="mt-3 text-white/80 max-w-2xl">Explora nuestras opciones y elige tu próximo favorito.</p>
+        </div>
+
+        <div id="filtros" class="flex flex-wrap gap-2">
+          <button data-cat="hamburguesas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-red-500 bg-red-500 text-white">Hamburguesas</button>
+          <button data-cat="entradas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Entradas</button>
+          <button data-cat="perros" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Perros</button>
+          <button data-cat="bebidas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Bebidas</button>
+        </div>
+      </div>
+
+      <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+        <p id="menuStatus" class="text-sm text-white/70">Cargando menú...</p>
+
+        <div class="relative w-full sm:w-80">
+          <input id="searchInput" type="text" placeholder="Buscar producto..."
+            class="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-red-500 focus:outline-none" />
+          <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/40">⌕</span>
+        </div>
+      </div>
+
+      <div id="menuGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+      <div id="noResults" class="hidden mt-8 rounded-2xl border border-white/10 bg-og.panel p-6 text-center text-white/80">
+        No encontramos productos con ese filtro o búsqueda.
+      </div>
+    </div>
+  </section>
+
+  <section id="ubicacion" class="py-14 sm:py-20 border-t border-white/10 bg-og.black2/95">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-og.panel p-6 sm:p-8">
+          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Ubicación</p>
+          <h2 class="mt-2 text-3xl font-black text-white">Visítanos</h2>
+
+          <div class="mt-6 space-y-4 text-white/90">
+            <p>📍 Engativá <span class="text-white/60">Carrera 101 # 73-09</span></p>
+            <p>📍 Zona: Bogotá · Álamos Norte</p>
+            <p>🕒 Horario: <span class="text-white/70">Martes a domingo · 3:00 pm. a 10:00 pm.</span></p>
+            <p>🛵 Domicilios: <span class="text-white/70">consulta cobertura por WhatsApp</span></p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
+              target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-xl bg-og.red px-5 py-3 font-bold text-white hover:bg-red-700 transition">
+              Pedir ahora
+            </a>
+            <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 px-5 py-3 font-semibold text-white hover:border-red-500 hover:text-red-300 transition">
+              Ver Instagram
+            </a>
+          </div>
+
+          <div class="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
+            <p class="text-sm text-white/80">¿Quieres una recomendación rápida? Escríbenos y te ayudamos a elegir según tu antojo.</p>
+          </div>
+        </div>
+
+        <div id="contacto" class="rounded-3xl border border-white/10 bg-og.panel p-6 sm:p-8">
+          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Celebraciones</p>
+          <h2 class="mt-2 text-3xl font-black text-white">Celebra tu cumpleaños o reuniones</h2>
+          <p class="mt-3 text-white/85">
+            Reserva con nosotros para cumpleaños, reuniones o eventos. Escríbenos por WhatsApp y coordinamos.
+          </p>
+
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20reservar%20para%20cumplea%C3%B1os%20o%20reuni%C3%B3n"
+            target="_blank" rel="noopener noreferrer"
+            class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-og.red px-5 py-3 font-semibold text-white hover:bg-red-700 transition">
+            Hablar por WhatsApp
+          </a>
+
+          <div class="mt-4 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/80">
+            Incluye: fecha, hora, cantidad de personas y si deseas decoración.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10 py-10 bg-black/70">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:grid-cols-3">
+        <div class="flex items-center gap-3">
+          <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 overflow-hidden">
+            <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
+          </div>
+          <div>
+            <p class="font-semibold text-white">OG Burger</p>
+            <p class="text-sm text-white/65">© 2026 · Todos los derechos reservados</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold text-white">Dirección</p>
+          <p class="mt-2 text-sm text-white/70">Engativá · Carrera 101 # 73-09, Bogotá (Álamos Norte)</p>
+          <a class="mt-3 inline-flex items-center rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white hover:border-red-500 hover:text-red-300 transition"
+             href="https://www.google.com/maps?q=Carrera%20101%20%23%2073-09%20Bogot%C3%A1%20Colombia"
+             target="_blank" rel="noopener noreferrer">
+            Abrir en Google Maps
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-2 text-sm">
+          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
+            Instagram
+          </a>
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
+            WhatsApp
+          </a>
+          <a href="https://www.google.com/maps?q=Carrera%20101%20%23%2073-09%20Bogot%C3%A1%20Colombia" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">
+            Cómo llegar
+          </a>
+          <a href="/admin/login" class="text-white/25 hover:text-white/60 transition" aria-label="Acceso administrativo" title="Acceso administrativo">·</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
+    target="_blank" rel="noopener noreferrer"
+    class="fixed bottom-5 left-5 z-40 inline-flex items-center gap-2 rounded-full border border-white/10 bg-og.red px-4 py-3 text-sm font-bold text-white shadow-og hover:bg-red-700 transition"
+    aria-label="Pedir por WhatsApp">
+    <span>💬</span>
+    <span class="hidden sm:inline">Pedir por WhatsApp</span>
+  </a>
+
+  <script>
+    const WHATSAPP_NUMBER = "573227912291";
+
+    const menuData = {
+      productos: [
+        { categoria: "entradas", nombre: "Nachos para compartir", precio: 16000, descripcion: "Totopos de maíz, frijol refrito, salsa de queso cheddar, guacamole fresco, pico de gallo y queso crema.", imagen: "/img/nachos.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Clásica", precio: 14000, combo: 20000, descripcion: "Carne 100% de res, queso cheddar suave, lechuga fresca, tomate, cebolla caramelizada, pepinillos y salsa OG en pan brioche.", imagen: "/img/og-clasica.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Quesuda", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, mix de quesos cheddar y mozzarella, tocineta, cebolla caramelizada, salsa de queso cheddar, queso crema, lechuga, tomate y pan artesanal.", imagen: "/img/og-quesuda.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Criolla", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, queso mozzarella, hogao, maíz tierno, huevo frito, tocineta, lechuga, tomate y salsa OG.", imagen: "/img/og-criolla.jpg", destacado: false },
+        { categoria: "hamburguesas", nombre: "OG Mexicana 🌶️", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, frijol refrito, queso mozzarella, guacamole fresco, chorizo santarosano, pico de gallo, queso crema y salsa picante en pan brioche.", imagen: "/img/og-mexicana.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Crispy", precio: 24000, combo: 30000, descripcion: "Carne 100% de res, queso cheddar, tocineta crujiente, cebolla crispy y salsa BBQ en pan brioche.", imagen: "/img/og-crispy.jpg", destacado: false },
+        { categoria: "hamburguesas", nombre: "OG Explosiva", precio: 26000, combo: 32000, descripcion: "Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", imagen: "/img/og-explosiva.jpg", destacado: true },
+        { categoria: "perros", nombre: "OG Clásico", precio: 14000, combo: 20000, descripcion: "Salchicha premium, cebolla caramelizada, papitas, tocineta y queso cheddar en pan brioche.", imagen: "/img/perro-clasico.jpg", destacado: false },
+        { categoria: "perros", nombre: "OG Mexicano 🌶️", precio: 20000, combo: 26000, descripcion: "Salchicha premium, frijol refrito, queso mozzarella, guacamole fresco, pico de gallo, queso crema y picante en pan brioche.", imagen: "/img/perro-mexicano.jpg", destacado: true },
+        { categoria: "bebidas", nombre: "Club Colombia", precio: 4500, imagen: "/img/club-colombia.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coronita", precio: 5000, imagen: "/img/coronita.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Águila", precio: 3500, imagen: "/img/aguila.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Águila Light", precio: 3700, imagen: "/img/aguila-light.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Agua", precio: 3000, imagen: "/img/agua.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coca Cola", precio: 4500, imagen: "/img/cocacola.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coca Cola Zero", precio: 4500, imagen: "/img/cocacola-zero.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Colombiana", precio: 3500, imagen: "/img/colombiana.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Manzana", precio: 3500, imagen: "/img/manzana.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Jugo Hit", precio: 4000, imagen: "/img/jugo-hit.jpg", destacado: false }
+      ]
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    let currentCategory = "hamburguesas";
+    let currentSearch = "";
+    let featuredIndex = 0;
+
+    function money(n) {
+      return new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(n);
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+    }
+
+    function buildWhatsAppLink(text) {
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    }
+
+    function getFilteredProducts() {
+      return menuData.productos.filter((p) => {
+        const byCategory = p.categoria === currentCategory;
+        const searchable = `${p.nombre} ${p.descripcion || ""} ${p.categoria}`.toLowerCase();
+        const bySearch = searchable.includes(currentSearch.toLowerCase().trim());
+        return byCategory && bySearch;
+      });
+    }
+
+    function cardMenu(item) {
+      const nombre = escapeHtml(item.nombre);
+      const descripcion = escapeHtml(item.descripcion || "");
+      const precio = money(item.precio);
+      const combo = item.combo ? `<div class="rounded-lg bg-white text-black px-3 py-1 text-xs sm:text-sm font-bold">Combo ${money(item.combo)}</div>` : "";
+      const categoriaBadge = `<span class="inline-flex items-center rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/80">${escapeHtml(item.categoria)}</span>`;
+      const imgSrc = escapeHtml(item.imagen || "");
+      const fallbackText = escapeHtml(item.nombre);
+
+      return `
+        <article class="group rounded-2xl border border-white/10 bg-og.panel p-4 hover:border-red-500/40 transition overflow-hidden">
+          <div class="relative mb-4 overflow-hidden rounded-xl border border-white/10 bg-black/40">
+            <img src="${imgSrc}" alt="${nombre}" class="h-48 w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy"
+              onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+            <div class="hidden h-48 w-full grid place-items-center text-white/45 text-sm bg-black/50">Foto de ${fallbackText}</div>
+            <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/70 to-transparent">${categoriaBadge}</div>
+          </div>
+
+          <div class="flex items-start justify-between gap-3">
+            <h4 class="text-lg sm:text-xl font-extrabold text-white leading-tight">${nombre}</h4>
+            <div class="text-right space-y-2 shrink-0">
+              <div class="rounded-lg bg-og.red px-3 py-1 text-xs sm:text-sm font-bold text-white">${precio}</div>
+              ${combo}
+            </div>
+          </div>
+
+          ${descripcion ? `<p class="mt-3 text-sm text-white/85 leading-relaxed line-clamp-4">${descripcion}</p>` : ""}
+
+          <div class="mt-4 flex gap-2">
+            <a href="${buildWhatsAppLink(`Hola OG Burger, quiero pedir: ${item.nombre}`)}" target="_blank" rel="noopener noreferrer"
+              class="inline-flex flex-1 items-center justify-center rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition">
+              Pedir
+            </a>
+            <button type="button"
+              class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/30 px-4 py-2.5 text-sm font-semibold text-white hover:border-red-500 hover:text-red-300 transition"
+              onclick='openProductModal(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
+              Ver más
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMenuGrid() {
+      const products = getFilteredProducts();
+      $("menuGrid").innerHTML = products.map(cardMenu).join("");
+      $("noResults").classList.toggle("hidden", products.length !== 0);
+      $("menuStatus").textContent = `${products.length} producto(s) encontrado(s)`;
+    }
+
+    function setActiveFilterButton() {
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        const active = btn.dataset.cat === currentCategory;
+        btn.className = active
+          ? "filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-red-500 bg-red-500 text-white"
+          : "filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500";
+      });
+    }
+
+    function renderFeatured() {
+      const featured = menuData.productos.filter((p) => p.destacado);
+      $("featuredTrack").innerHTML = featured.map((item) => {
+        const nombre = escapeHtml(item.nombre);
+        const imgSrc = escapeHtml(item.imagen || "");
+        const desc = escapeHtml(item.descripcion || "Producto destacado OG Burger");
+        return `
+          <article class="min-w-[85%] sm:min-w-[48%] lg:min-w-[32%] rounded-2xl border border-white/10 bg-og.panel p-4">
+            <div class="overflow-hidden rounded-xl border border-white/10 bg-black/30">
+              <img src="${imgSrc}" alt="${nombre}" class="h-48 w-full object-cover" loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
+              <div class="hidden h-48 w-full grid place-items-center text-white/45 text-sm bg-black/50">Foto de ${nombre}</div>
+            </div>
+            <div class="mt-4 flex items-start justify-between gap-3">
+              <div>
+                <p class="text-lg font-bold text-white">${nombre}</p>
+                <p class="mt-1 text-sm text-white/75 line-clamp-2">${desc}</p>
+              </div>
+              <span class="rounded-lg bg-og.red px-2.5 py-1 text-xs font-bold text-white">${money(item.precio)}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+      updateFeaturedPosition();
+    }
+
+    function updateFeaturedPosition() {
+      const track = $("featuredTrack");
+      const cards = track.children;
+      if (!cards.length) return;
+      const maxIndex = cards.length - 1;
+      featuredIndex = Math.max(0, Math.min(featuredIndex, maxIndex));
+      const cardWidth = cards[0].offsetWidth + 16;
+      track.style.transform = `translateX(-${featuredIndex * cardWidth}px)`;
+    }
+
+    function nextFeatured() {
+      const total = $("featuredTrack").children.length;
+      if (!total) return;
+      featuredIndex = (featuredIndex + 1) % total;
+      updateFeaturedPosition();
+    }
+
+    function prevFeatured() {
+      const total = $("featuredTrack").children.length;
+      if (!total) return;
+      featuredIndex = (featuredIndex - 1 + total) % total;
+      updateFeaturedPosition();
+    }
+
+    function ensureModal() {
+      if ($("productModal")) return;
+
+      const modal = document.createElement("div");
+      modal.id = "productModal";
+      modal.className = "fixed inset-0 z-[60] hidden";
+      modal.innerHTML = `
+        <div class="absolute inset-0 bg-black/75" data-close-modal></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+          <div class="w-full max-w-2xl rounded-2xl border border-white/10 bg-og.panel shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between border-b border-white/10 px-4 py-3">
+              <h3 id="modalTitle" class="text-lg font-bold text-white">Producto</h3>
+              <button type="button" id="closeModalBtn" class="rounded-lg border border-white/15 bg-black/30 px-3 py-1.5 text-sm hover:border-red-500 transition">Cerrar</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-0">
+              <div class="border-b md:border-b-0 md:border-r border-white/10 bg-black/30">
+                <img id="modalImage" src="" alt="" class="h-64 md:h-full w-full object-cover" />
+              </div>
+              <div class="p-4 sm:p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p id="modalCategory" class="text-xs uppercase tracking-widest text-red-300"></p>
+                    <p id="modalName" class="mt-1 text-2xl font-black text-white"></p>
+                  </div>
+                  <div class="text-right space-y-2">
+                    <div id="modalPrice" class="rounded-lg bg-og.red px-3 py-1 text-sm font-bold text-white inline-block"></div>
+                    <div id="modalCombo" class="hidden rounded-lg bg-white text-black px-3 py-1 text-sm font-bold"></div>
+                  </div>
+                </div>
+                <p id="modalDesc" class="mt-4 text-white/85 leading-relaxed"></p>
+                <div class="mt-5 flex flex-col sm:flex-row gap-3">
+                  <a id="modalOrderBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex flex-1 items-center justify-center rounded-xl bg-og.red px-4 py-3 font-semibold text-white hover:bg-red-700 transition">Pedir por WhatsApp</a>
+                  <button type="button" id="modalCloseSecondary" class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/30 px-4 py-3 font-semibold text-white hover:border-red-500 transition">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target && e.target.matches("[data-close-modal]")) closeProductModal();
+      });
+      $("closeModalBtn").addEventListener("click", closeProductModal);
+      $("modalCloseSecondary").addEventListener("click", closeProductModal);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeProductModal();
+      });
+    }
+
+    window.openProductModal = function(item) {
+      ensureModal();
+      $("modalTitle").textContent = item.nombre || "Producto";
+      $("modalCategory").textContent = (item.categoria || "").toUpperCase();
+      $("modalName").textContent = item.nombre || "";
+      $("modalPrice").textContent = money(item.precio || 0);
+
+      const comboEl = $("modalCombo");
+      if (item.combo) {
+        comboEl.textContent = `Combo ${money(item.combo)}`;
+        comboEl.classList.remove("hidden");
+      } else {
+        comboEl.classList.add("hidden");
+      }
+
+      $("modalDesc").textContent = item.descripcion || "Consulta disponibilidad y detalles por WhatsApp.";
+
+      const modalImg = $("modalImage");
+      modalImg.src = item.imagen || "";
+      modalImg.alt = item.nombre || "Producto";
+      modalImg.onerror = function() {
+        this.src = "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80";
+      };
+
+      $("modalOrderBtn").href = buildWhatsAppLink(`Hola OG Burger, quiero pedir: ${item.nombre}`);
+
+      $("productModal").classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    };
+
+    function closeProductModal() {
+      const modal = $("productModal");
+      if (!modal) return;
+      modal.classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    function wireEvents() {
+      $("mobileMenuBtn")?.addEventListener("click", () => $("mobileMenu")?.classList.toggle("hidden"));
+
+      $("floatingOrderBtn")?.addEventListener("click", () => {
+        window.open(buildWhatsAppLink("Hola OG Burger, quiero hacer un pedido"), "_blank");
+      });
+
+      $("filtros")?.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-cat]");
+        if (!btn) return;
+        currentCategory = btn.dataset.cat;
+        setActiveFilterButton();
+        renderMenuGrid();
+      });
+
+      $("searchInput")?.addEventListener("input", (e) => {
+        currentSearch = e.target.value || "";
+        renderMenuGrid();
+      });
+
+      $("nextFeatured")?.addEventListener("click", nextFeatured);
+      $("prevFeatured")?.addEventListener("click", prevFeatured);
+
+      window.addEventListener("resize", updateFeaturedPosition);
+    }
+
+    function init() {
+      renderFeatured();
+      setActiveFilterButton();
+      renderMenuGrid();
+      wireEvents();
+      $("menuStatus").textContent = `${menuData.productos.filter(p => p.categoria === currentCategory).length} producto(s) disponibles`;
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
