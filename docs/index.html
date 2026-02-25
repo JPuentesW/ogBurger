@@ -54,7 +54,7 @@
       <div class="flex h-16 items-center justify-between">
         <a href="#inicio" class="flex items-center gap-3">
           <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 shadow-og overflow-hidden">
-            <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+            <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
           </div>
           <div>
@@ -131,12 +131,12 @@
         <div class="relative">
           <div class="rounded-3xl border border-white/10 bg-og.panel p-4 shadow-2xl">
             <div class="relative overflow-hidden rounded-2xl border border-white/10">
-              <img src="/img/hero-burger.jpg" alt="Hamburguesa OG Burger" class="aspect-[4/5] w-full object-cover"
+              <img src="img/hero-burger.jpg" alt="Hamburguesa OG Burger" class="aspect-[4/5] w-full object-cover"
                 onerror="this.src='img/og-bestia.jpg';" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
 
               <div class="absolute top-4 left-4 h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-white p-2 shadow-og animate-floatSlow grid place-items-center">
-                <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+                <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-xl font-black text-black&quot;>OG</span>';" />
               </div>
 
@@ -271,7 +271,7 @@
       <div class="grid gap-8 lg:grid-cols-3">
         <div class="flex items-center gap-3">
           <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 overflow-hidden">
-            <img src="/img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
+            <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
           </div>
           <div>
@@ -319,25 +319,25 @@
 
     const menuData = {
       productos: [
-        { categoria: "entradas", nombre: "Nachos para compartir", precio: 16000, descripcion: "Totopos de maíz, frijol refrito, salsa de queso cheddar, guacamole fresco, pico de gallo y queso crema.", imagen: "/img/nachos.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Clásica", precio: 14000, combo: 20000, descripcion: "Carne 100% de res, queso cheddar suave, lechuga fresca, tomate, cebolla caramelizada, pepinillos y salsa OG en pan brioche.", imagen: "/img/og-clasica.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Quesuda", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, mix de quesos cheddar y mozzarella, tocineta, cebolla caramelizada, salsa de queso cheddar, queso crema, lechuga, tomate y pan artesanal.", imagen: "/img/og-quesuda.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Criolla", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, queso mozzarella, hogao, maíz tierno, huevo frito, tocineta, lechuga, tomate y salsa OG.", imagen: "/img/og-criolla.jpg", destacado: false },
-        { categoria: "hamburguesas", nombre: "OG Mexicana 🌶️", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, frijol refrito, queso mozzarella, guacamole fresco, chorizo santarosano, pico de gallo, queso crema y salsa picante en pan brioche.", imagen: "/img/og-mexicana.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Crispy", precio: 24000, combo: 30000, descripcion: "Carne 100% de res, queso cheddar, tocineta crujiente, cebolla crispy y salsa BBQ en pan brioche.", imagen: "/img/og-crispy.jpg", destacado: false },
-        { categoria: "hamburguesas", nombre: "OG Explosiva", precio: 26000, combo: 32000, descripcion: "Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", imagen: "/img/og-explosiva.jpg", destacado: true },
-        { categoria: "perros", nombre: "OG Clásico", precio: 14000, combo: 20000, descripcion: "Salchicha premium, cebolla caramelizada, papitas, tocineta y queso cheddar en pan brioche.", imagen: "/img/perro-clasico.jpg", destacado: false },
-        { categoria: "perros", nombre: "OG Mexicano 🌶️", precio: 20000, combo: 26000, descripcion: "Salchicha premium, frijol refrito, queso mozzarella, guacamole fresco, pico de gallo, queso crema y picante en pan brioche.", imagen: "/img/perro-mexicano.jpg", destacado: true },
-        { categoria: "bebidas", nombre: "Club Colombia", precio: 4500, imagen: "/img/club-colombia.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coronita", precio: 5000, imagen: "/img/coronita.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Águila", precio: 3500, imagen: "/img/aguila.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Águila Light", precio: 3700, imagen: "/img/aguila-light.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Agua", precio: 3000, imagen: "/img/agua.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coca Cola", precio: 4500, imagen: "/img/cocacola.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coca Cola Zero", precio: 4500, imagen: "/img/cocacola-zero.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Colombiana", precio: 3500, imagen: "/img/colombiana.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Manzana", precio: 3500, imagen: "/img/manzana.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Jugo Hit", precio: 4000, imagen: "/img/jugo-hit.jpg", destacado: false }
+        { categoria: "entradas", nombre: "Nachos para compartir", precio: 16000, descripcion: "Totopos de maíz, frijol refrito, salsa de queso cheddar, guacamole fresco, pico de gallo y queso crema.", imagen: "img/nachos.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Clásica", precio: 14000, combo: 20000, descripcion: "Carne 100% de res, queso cheddar suave, lechuga fresca, tomate, cebolla caramelizada, pepinillos y salsa OG en pan brioche.", imagen: "img/og-clasica.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Quesuda", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, mix de quesos cheddar y mozzarella, tocineta, cebolla caramelizada, salsa de queso cheddar, queso crema, lechuga, tomate y pan artesanal.", imagen: "img/og-quesuda.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Criolla", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, queso mozzarella, hogao, maíz tierno, huevo frito, tocineta, lechuga, tomate y salsa OG.", imagen: "img/og-criolla.jpg", destacado: false },
+        { categoria: "hamburguesas", nombre: "OG Mexicana 🌶️", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, frijol refrito, queso mozzarella, guacamole fresco, chorizo santarosano, pico de gallo, queso crema y salsa picante en pan brioche.", imagen: "img/og-mexicana.jpg", destacado: true },
+        { categoria: "hamburguesas", nombre: "OG Crispy", precio: 24000, combo: 30000, descripcion: "Carne 100% de res, queso cheddar, tocineta crujiente, cebolla crispy y salsa BBQ en pan brioche.", imagen: "img/og-crispy.jpg", destacado: false },
+        { categoria: "hamburguesas", nombre: "OG Explosiva", precio: 26000, combo: 32000, descripcion: "Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", imagen: "img/og-explosiva.jpg", destacado: true },
+        { categoria: "perros", nombre: "OG Clásico", precio: 14000, combo: 20000, descripcion: "Salchicha premium, cebolla caramelizada, papitas, tocineta y queso cheddar en pan brioche.", imagen: "img/perro-clasico.jpg", destacado: false },
+        { categoria: "perros", nombre: "OG Mexicano 🌶️", precio: 20000, combo: 26000, descripcion: "Salchicha premium, frijol refrito, queso mozzarella, guacamole fresco, pico de gallo, queso crema y picante en pan brioche.", imagen: "img/perro-mexicano.jpg", destacado: true },
+        { categoria: "bebidas", nombre: "Club Colombia", precio: 4500, imagen: "img/club-colombia.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coronita", precio: 5000, imagen: "img/coronita.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Águila", precio: 3500, imagen: "img/aguila.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Águila Light", precio: 3700, imagen: "img/aguila-light.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Agua", precio: 3000, imagen: "img/agua.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coca Cola", precio: 4500, imagen: "img/cocacola.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Coca Cola Zero", precio: 4500, imagen: "img/cocacola-zero.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Colombiana", precio: 3500, imagen: "img/colombiana.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Manzana", precio: 3500, imagen: "img/manzana.jpg", destacado: false },
+        { categoria: "bebidas", nombre: "Jugo Hit", precio: 4000, imagen: "img/jugo-hit.jpg", destacado: false }
       ]
     };
 
