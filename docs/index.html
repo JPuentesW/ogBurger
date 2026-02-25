@@ -4,613 +4,1057 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OG Burger | 100% Carne 200% Sabor</title>
-  <meta name="description" content="OG Burger: hamburguesas, perros y bebidas. Conoce nuestro menú y haz tu pedido por WhatsApp." />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            og: {
-              black: "#050505",
-              black2: "#0B0B0B",
-              panel: "#121212",
-              panel2: "#1A1A1A",
-              red: "#C1121F",
-              redDark: "#8B0E17"
-            }
-          },
-          boxShadow: { og: "0 12px 30px rgba(193,18,31,.28)" },
-          animation: {
-            floatSlow: "floatSlow 6s ease-in-out infinite",
-            pulseSoft: "pulseSoft 2.8s ease-in-out infinite"
-          },
-          keyframes: {
-            floatSlow: { "0%, 100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-8px)" } },
-            pulseSoft: { "0%, 100%": { opacity: "1" }, "50%": { opacity: ".75" } }
-          }
-        }
-      }
-    };
-  </script>
+  <meta name="description" content="OG Burger: hamburguesas, perros y bebidas artesanales en Bogotá. Pide por WhatsApp o visítanos en Engativá, Álamos Norte." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
-    body{margin:0;background:#050505;color:#fff;font-family:Arial,sans-serif}
-    html{scroll-behavior:smooth}
-    /* Ocultar scrollbar del carrusel */
-    #featuredViewport::-webkit-scrollbar { display: none; }
+    /* ── TOKENS ── */
+    :root {
+      --black:   #080808;
+      --panel:   #111111;
+      --panel2:  #181818;
+      --border:  rgba(255,255,255,.09);
+      --red:     #C8151F;
+      --red-d:   #96101A;
+      --red-g:   linear-gradient(135deg, #C8151F 0%, #8B0000 100%);
+      --white:   #FFFFFF;
+      --muted:   rgba(255,255,255,.65);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --radius:  18px;
+      --trans:   .2s ease;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND AMBIENT ── */
+    .bg-ambient {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 20% 10%, rgba(200,21,31,.12) 0%, transparent 65%),
+                  radial-gradient(ellipse 60% 45% at 85% 35%, rgba(139,0,0,.10) 0%, transparent 65%),
+                  radial-gradient(ellipse 55% 40% at 50% 90%, rgba(200,21,31,.07) 0%, transparent 65%),
+                  var(--black);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,8,.82);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-link { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-badge {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--white); padding: 3px;
+      display: grid; place-items: center; overflow: hidden;
+      box-shadow: 0 0 18px rgba(200,21,31,.35);
+    }
+    .logo-badge img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+    .logo-text { line-height: 1; }
+    .logo-text strong { display: block; font-family: var(--font-display); font-size: 1.2rem; letter-spacing: .04em; color: var(--white); }
+    .logo-text span { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+    nav.desktop { display: flex; gap: 28px; align-items: center; }
+    nav.desktop a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 600; transition: color var(--trans); }
+    nav.desktop a:hover { color: #ff4d57; }
+    @media (max-width: 768px) { nav.desktop { display: none; } }
+
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-ghost { 
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--white); padding: 8px 16px; border-radius: 12px;
+      font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: border-color var(--trans), color var(--trans);
+    }
+    .btn-ghost:hover { border-color: rgba(200,21,31,.6); color: #ff4d57; }
+
+    .mobile-menu-btn {
+      display: none; background: transparent; border: 1px solid var(--border);
+      color: var(--white); padding: 8px 12px; border-radius: 12px;
+      font-size: 1.1rem; cursor: pointer; transition: border-color var(--trans), color var(--trans);
+    }
+    .mobile-menu-btn:hover { border-color: rgba(200,21,31,.6); color: #ff4d57; }
+    @media (max-width: 768px) { .mobile-menu-btn { display: flex; } }
+
+    .mobile-nav {
+      display: none; flex-direction: column; gap: 2px;
+      padding: 8px 20px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      padding: 10px 14px; border-radius: 12px; color: var(--muted);
+      text-decoration: none; font-size: .9rem; font-weight: 600;
+      transition: background var(--trans), color var(--trans);
+    }
+    .mobile-nav a:hover { background: rgba(255,255,255,.05); color: var(--white); }
+
+    /* ── BUTTONS ── */
+    .btn-red {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--red-g); color: var(--white);
+      padding: 13px 26px; border-radius: var(--radius);
+      font-family: var(--font-body); font-size: .95rem; font-weight: 800;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: filter var(--trans), transform var(--trans);
+      box-shadow: 0 6px 24px rgba(200,21,31,.32);
+    }
+    .btn-red:hover { filter: brightness(1.12); transform: translateY(-1px); }
+    .btn-red:active { transform: translateY(0); }
+
+    /* ── HERO ── */
+    .hero { padding: 60px 20px 80px; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; } }
+
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(200,21,31,.12); border: 1px solid rgba(200,21,31,.3);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: .78rem; font-weight: 700; color: #ff8085; text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: .9; letter-spacing: .01em; color: var(--white);
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--red); display: block; }
+    .hero p { font-size: 1.05rem; color: var(--muted); line-height: 1.6; max-width: 480px; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 20px; font-size: .85rem; color: rgba(255,255,255,.55); font-weight: 600; }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Hero visual */
+    .hero-visual { position: relative; }
+    .hero-card {
+      border-radius: 28px; border: 1px solid var(--border);
+      background: var(--panel); padding: 16px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    }
+    .hero-card-img {
+      border-radius: 18px; overflow: hidden; position: relative;
+      border: 1px solid var(--border);
+    }
+    .hero-card-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+    }
+    .hero-logo-float {
+      position: absolute; top: 16px; left: 16px;
+      width: 80px; height: 80px; background: var(--white); border-radius: 50%; padding: 8px;
+      box-shadow: 0 8px 30px rgba(200,21,31,.4);
+      animation: floatY 5s ease-in-out infinite;
+      overflow: hidden; display: grid, place-items-center;
+    }
+    .hero-logo-float img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+
+    .hero-cta-float {
+      position: absolute; bottom: -18px; right: -18px;
+      background: rgba(10,10,10,.85); border: 1px solid var(--border);
+      backdrop-filter: blur(14px); border-radius: 16px;
+      padding: 14px 20px; cursor: pointer;
+      font-family: var(--font-body); font-weight: 800; font-size: .9rem; color: var(--white);
+      transition: border-color var(--trans), color var(--trans), transform var(--trans);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .hero-cta-float:hover { border-color: rgba(200,21,31,.7); color: #ff4d57; transform: scale(1.04); }
+
+    .hero-card-info {
+      position: absolute; bottom: 16px; left: 16px; right: 16px;
+      background: rgba(8,8,8,.75); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 16px; padding: 16px;
+    }
+    .hero-card-info small { font-size: .7rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; }
+    .hero-card-info strong { display: block; font-family: var(--font-display); font-size: 1.4rem; margin-top: 2px; }
+    .hero-card-info p { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,21,31,.3); }
+      50% { box-shadow: 0 0 0 8px rgba(200,21,31,0); }
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-label { font-size: .75rem; font-weight: 700; color: #ff6b6b; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .02em; line-height: 1; }
+    .section-sub { font-size: 1rem; color: var(--muted); margin-top: 10px; }
+
+    /* ── FEATURED ── */
+    .featured-section { padding: 60px 0; border-top: 1px solid var(--border); background: rgba(0,0,0,.25); }
+    .featured-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .featured-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .featured-nav { display: flex; gap: 8px; }
+    .featured-nav button {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--white); width: 40px; height: 40px; border-radius: 12px;
+      font-size: 1rem; cursor: pointer; transition: border-color var(--trans), color var(--trans);
+    }
+    .featured-nav button:hover { border-color: rgba(200,21,31,.6); color: #ff4d57; }
+
+    .featured-track {
+      display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+    }
+    .featured-track::-webkit-scrollbar { display: none; }
+    .featured-track { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .feat-card {
+      flex-shrink: 0; width: calc(85% - 8px); scroll-snap-align: start;
+      border-radius: 22px; border: 1px solid var(--border); background: var(--panel);
+      overflow: hidden; transition: border-color var(--trans), transform var(--trans);
+    }
+    .feat-card:hover { border-color: rgba(200,21,31,.35); transform: translateY(-3px); }
+    @media (min-width: 640px) { .feat-card { width: calc(48% - 8px); } }
+    @media (min-width: 1024px) { .feat-card { width: calc(33.333% - 12px); } }
+
+    .feat-card-img { position: relative; overflow: hidden; }
+    .feat-card-img img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .5s ease; }
+    .feat-card:hover .feat-card-img img { transform: scale(1.06); }
+    .feat-card-body { padding: 16px; }
+    .feat-card-name { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .02em; }
+   .feat-card-desc{display: -webkit-box;-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-clamp: 2;}
+    .feat-card-price { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
+    .price-tag { background: var(--red-g); color: var(--white); padding: 5px 12px; border-radius: 8px; font-size: .82rem; font-weight: 800; }
+
+    /* ── MENU SECTION ── */
+    .menu-section { padding: 70px 20px; border-top: 1px solid var(--border); }
+    .menu-inner { max-width: 1200px; margin: 0 auto; }
+    .menu-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+
+    .filter-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .filter-btn {
+      padding: 9px 20px; border-radius: 12px; border: 1px solid var(--border);
+      background: transparent; color: rgba(255,255,255,.7);
+      font-family: var(--font-body); font-size: .85rem; font-weight: 700;
+      cursor: pointer; transition: all var(--trans);
+    }
+    .filter-btn:hover { border-color: rgba(200,21,31,.5); color: #ff6b6b; }
+    .filter-btn.active { background: var(--red-g); border-color: transparent; color: var(--white); box-shadow: 0 4px 16px rgba(200,21,31,.3); }
+
+    .search-wrap { position: relative; width: 100%; max-width: 320px; }
+    .search-wrap input {
+      width: 100%; background: rgba(255,255,255,.04); border: 1px solid var(--border);
+      color: var(--white); padding: 10px 16px 10px 40px; border-radius: 12px;
+      font-family: var(--font-body); font-size: .9rem; outline: none;
+      transition: border-color var(--trans);
+    }
+    .search-wrap input::placeholder { color: rgba(255,255,255,.3); }
+    .search-wrap input:focus { border-color: rgba(200,21,31,.5); }
+    .search-wrap .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.3); font-size: .9rem; pointer-events: none; }
+
+    .menu-meta { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 24px; flex-wrap: wrap; gap: 12px; }
+    .menu-status { font-size: .82rem; color: var(--muted); }
+
+    .menu-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+    /* ── PRODUCT CARD ── */
+    .prod-card {
+      border-radius: 22px; border: 1px solid var(--border); background: var(--panel);
+      overflow: hidden; transition: border-color var(--trans), transform var(--trans), box-shadow var(--trans);
+    }
+    .prod-card:hover { border-color: rgba(200,21,31,.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+
+    .prod-img-wrap { position: relative; overflow: hidden; }
+    .prod-img-wrap img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .5s ease; }
+    .prod-card:hover .prod-img-wrap img { transform: scale(1.06); }
+    .prod-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 50%); }
+    .prod-img-badge {
+      position: absolute; bottom: 10px; left: 10px;
+      background: rgba(8,8,8,.75); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 3px 10px; font-size: .68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.75);
+    }
+    .prod-img-fallback { display: none; height: 200px; background: rgba(0,0,0,.4); place-items: center; font-size: .85rem; color: var(--muted); }
+
+    .prod-body { padding: 18px; }
+    .prod-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .prod-name { font-family: var(--font-display); font-size: 1.35rem; letter-spacing: .02em; line-height: 1.1; }
+    .prod-prices { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; }
+    .prod-price-main { background: var(--red-g); color: var(--white); padding: 4px 11px; border-radius: 8px; font-size: .8rem; font-weight: 800; white-space: nowrap; }
+    .prod-price-combo { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); color: var(--white); padding: 4px 11px; border-radius: 8px; font-size: .75rem; font-weight: 700; white-space: nowrap; }
+    .prod-desc { margin-top: 10px; font-size: .82rem; color: var(--muted); line-height: 1.55; }
+    .prod-actions { margin-top: 14px; display: flex; gap: 8px; }
+    .prod-btn-order {
+      flex: 1; background: var(--red-g); color: var(--white);
+      border: none; padding: 10px; border-radius: 12px;
+      font-family: var(--font-body); font-size: .85rem; font-weight: 800;
+      cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: filter var(--trans);
+    }
+    .prod-btn-order:hover { filter: brightness(1.12); }
+    .prod-btn-detail {
+      background: transparent; border: 1px solid var(--border);
+      color: rgba(255,255,255,.75); padding: 10px 14px; border-radius: 12px;
+      font-family: var(--font-body); font-size: .85rem; font-weight: 700;
+      cursor: pointer; transition: border-color var(--trans), color var(--trans);
+    }
+    .prod-btn-detail:hover { border-color: rgba(200,21,31,.5); color: #ff6b6b; }
+
+    .no-results {
+      display: none; text-align: center; padding: 48px 20px;
+      border-radius: 22px; border: 1px dashed var(--border);
+      color: var(--muted); font-size: .95rem;
+    }
+
+    /* ── LOCATION / BIRTHDAY SECTION ── */
+    .location-section { padding: 70px 20px; border-top: 1px solid var(--border); background: rgba(0,0,0,.2); }
+    .location-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 900px) { .location-inner { grid-template-columns: 1fr; } }
+
+    .location-card {
+      border-radius: 24px; border: 1px solid var(--border); background: var(--panel);
+      padding: 32px; display: flex; flex-direction: column;
+    }
+    .location-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .location-item:last-child { border-bottom: none; }
+    .location-icon { width: 36px; height: 36px; background: rgba(200,21,31,.12); border: 1px solid rgba(200,21,31,.25); border-radius: 10px; display: grid; place-items: center; font-size: .9rem; flex-shrink: 0; }
+    .location-item-text strong { display: block; font-size: .9rem; font-weight: 700; margin-bottom: 2px; }
+    .location-item-text span { font-size: .82rem; color: var(--muted); }
+
+    .map-wrap { margin-top: 20px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); flex: 1; min-height: 200px; }
+    .map-wrap iframe { width: 100%; height: 220px; border: 0; display: block; }
+    .location-btns { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ── BIRTHDAY CARD ── */
+    .birthday-card {
+      border-radius: 24px; overflow: hidden; position: relative;
+      background: var(--panel);
+      border: 1px solid rgba(200,21,31,.3);
+    }
+    .birthday-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,21,31,.20) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 90% 90%, rgba(139,0,0,.15) 0%, transparent 60%);
+    }
+    .birthday-grid {
+      position: absolute; inset: 0; opacity: .04;
+      background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.5) 0, rgba(255,255,255,.5) 1px, transparent 1px, transparent 40px),
+                        repeating-linear-gradient(90deg, rgba(255,255,255,.5) 0, rgba(255,255,255,.5) 1px, transparent 1px, transparent 40px);
+    }
+    .birthday-content { position: relative; z-index: 1; padding: 36px 32px; display: flex; flex-direction: column; height: 100%; }
+    .birthday-emoji-row { display: flex; gap: 10px; font-size: 1.8rem; margin-bottom: 16px; }
+    .birthday-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; letter-spacing: .03em; margin-bottom: 14px; }
+    .birthday-title span { color: var(--red); }
+    .birthday-desc { font-size: 1rem; color: rgba(255,255,255,.8); line-height: 1.6; margin-bottom: 24px; max-width: 380px; }
+    .birthday-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .birthday-feature { display: flex; align-items: center; gap: 10px; }
+    .feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; box-shadow: 0 0 8px rgba(200,21,31,.7); }
+    .birthday-feature span { font-size: .9rem; color: rgba(255,255,255,.8); font-weight: 600; }
+    .birthday-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--white); color: var(--black);
+      padding: 16px 28px; border-radius: var(--radius);
+      font-family: var(--font-body); font-weight: 800; font-size: 1rem;
+      text-decoration: none; transition: transform var(--trans), box-shadow var(--trans);
+      box-shadow: 0 6px 24px rgba(255,255,255,.15);
+      align-self: flex-start;
+    }
+    .birthday-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,255,255,.22); }
+    .birthday-cta .wa-icon { color: #25D366; font-size: 1.1rem; }
+    .birthday-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(200,21,31,.9); border: 1px solid rgba(255,255,255,.2);
+      color: var(--white); padding: 6px 14px; border-radius: 100px;
+      font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ── MODAL ── */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 9000; display: none;
+      background: rgba(0,0,0,.92); backdrop-filter: blur(12px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      width: 100%; max-width: 600px; border-radius: 24px;
+      border: 1px solid var(--border); background: var(--panel);
+      overflow: hidden; max-height: 92vh; overflow-y: auto;
+    }
+    .modal-box::-webkit-scrollbar { width: 4px; }
+    .modal-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--panel); z-index: 1;
+    }
+    .modal-header h3 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: .03em; }
+    .modal-close {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); padding: 6px 14px; border-radius: 10px;
+      font-family: var(--font-body); font-size: .82rem; cursor: pointer;
+      transition: border-color var(--trans), color var(--trans);
+    }
+    .modal-close:hover { border-color: rgba(200,21,31,.5); color: #ff4d57; }
+    .modal-body { display: grid; }
+    @media (min-width: 520px) { .modal-body { grid-template-columns: 1fr 1fr; } }
+    .modal-img { position: relative; background: rgba(0,0,0,.4); }
+    .modal-img img { width: 100%; height: 240px; object-fit: cover; display: block; }
+    @media (min-width: 520px) { .modal-img img { height: 100%; min-height: 260px; } }
+    .modal-info { padding: 24px 20px; }
+    .modal-cat { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #ff6b6b; margin-bottom: 6px; }
+    .modal-name { font-family: var(--font-display); font-size: 2rem; letter-spacing: .03em; line-height: 1; margin-bottom: 14px; }
+    .modal-prices { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .modal-desc { font-size: .88rem; color: rgba(255,255,255,.8); line-height: 1.65; margin-bottom: 24px; }
+    .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 50px 20px 30px; background: rgba(0,0,0,.4); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; gap: 40px; }
+    @media (min-width: 768px) { .footer-inner { grid-template-columns: 1fr 1.5fr 1fr; } }
+    .footer-brand strong { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .05em; display: block; }
+    .footer-brand span { font-size: .78rem; color: var(--muted); }
+    .footer-title { font-weight: 700; font-size: .85rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.5); }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .88rem; transition: color var(--trans); }
+    .footer-links a:hover { color: #ff4d57; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; font-size: .78rem; color: rgba(255,255,255,.3); }
+
+    /* ── WHATSAPP FLOATING ── */
+    .wa-float {
+      position: fixed; bottom: 20px; left: 20px; z-index: 500;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #25D366; color: var(--white);
+      padding: 12px 18px; border-radius: 100px;
+      font-family: var(--font-body); font-size: .85rem; font-weight: 800;
+      text-decoration: none; box-shadow: 0 6px 24px rgba(37,211,102,.35);
+      transition: background var(--trans), transform var(--trans);
+    }
+    .wa-float:hover { background: #1ebe5c; transform: scale(1.04); }
+    .wa-float i { font-size: 1.15rem; }
+    @media (max-width: 640px) { .wa-float span { display: none; } }
+
+    /* ── DIVIDER UTILITY ── */
+    .divider { height: 1px; background: var(--border); }
+
+    /* ── padding bottom on mobile for WAF ── */
+    @media (max-width: 640px) { body { padding-bottom: 80px; } }
   </style>
 </head>
-<body class="bg-og.black text-white min-h-screen">
+<body>
+  <div class="bg-ambient" aria-hidden="true"></div>
 
-  <div class="fixed inset-0 -z-10 overflow-hidden bg-og.black">
-    <div class="absolute inset-0 bg-gradient-to-b from-black via-og.black2 to-black"></div>
-    <div class="absolute -top-24 -left-20 h-72 w-72 rounded-full bg-og.red/20 blur-3xl"></div>
-    <div class="absolute top-1/3 -right-16 h-80 w-80 rounded-full bg-red-700/20 blur-3xl"></div>
-    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-og.redDark/20 blur-3xl"></div>
-  </div>
+  <!-- ═══════════════════════ HEADER ═══════════════════════ -->
+  <header class="header">
+    <div class="header-inner">
+      <!-- Logo -->
+      <a href="#inicio" class="logo-link">
+        <div class="logo-badge">
+          <img src="img/ogLogo.jpg" alt="Logo OG Burger"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-family:var(--font-display);font-size:1rem;color:#000&quot;>OG</span>';" />
+        </div>
+        <div class="logo-text">
+          <strong>OG Burger</strong>
+          <span>100% Carne · 200% Sabor</span>
+        </div>
+      </a>
 
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <a href="#inicio" class="flex items-center gap-3">
-          <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 shadow-og overflow-hidden">
-            <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
-          </div>
-          <div>
-            <p class="text-sm font-semibold leading-none text-white">OG Burger</p>
-            <p class="text-xs text-white/70">100% Carne 200% Sabor</p>
-          </div>
+      <!-- Desktop nav -->
+      <nav class="desktop" aria-label="Navegación principal">
+        <a href="#menu">Menú</a>
+        <a href="#destacados">Destacados</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a href="#celebraciones">Celebraciones</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="display:none;" id="igHeaderBtn">
+          <i class="fa-brands fa-instagram"></i> Instagram
         </a>
-
-        <nav class="hidden md:flex items-center gap-8 text-sm text-white/90">
-          <a href="#menu" class="hover:text-red-400 transition">Menú</a>
-          <a href="#destacados" class="hover:text-red-400 transition">Destacados</a>
-          <a href="#ubicacion" class="hover:text-red-400 transition">Ubicación</a>
-          <a href="#contacto" class="hover:text-red-400 transition">Celebraciones</a>
-        </nav>
-
-        <div class="flex items-center gap-2">
-          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer"
-            class="hidden sm:inline-flex items-center rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white hover:border-red-500 hover:text-red-300 transition">
-            Instagram
-          </a>
-          <button id="mobileMenuBtn"
-            class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 p-2 text-white hover:border-red-500 transition"
-            aria-label="Abrir menú">☰</button>
-        </div>
-      </div>
-
-      <div id="mobileMenu" class="md:hidden hidden pb-4">
-        <div class="rounded-2xl border border-white/10 bg-og.panel p-3 flex flex-col gap-2 text-sm">
-          <a href="#menu" class="rounded-lg px-3 py-2 hover:bg-white/5">Menú</a>
-          <a href="#destacados" class="rounded-lg px-3 py-2 hover:bg-white/5">Destacados</a>
-          <a href="#ubicacion" class="rounded-lg px-3 py-2 hover:bg-white/5">Ubicación</a>
-          <a href="#contacto" class="rounded-lg px-3 py-2 hover:bg-white/5">Celebraciones</a>
-          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="rounded-lg px-3 py-2 hover:bg-white/5">Instagram</a>
-        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </div>
+
+    <!-- Mobile nav -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="Menú móvil">
+      <a href="#menu" onclick="closeMobileMenu()">Menú</a>
+      <a href="#destacados" onclick="closeMobileMenu()">Destacados</a>
+      <a href="#ubicacion" onclick="closeMobileMenu()">Ubicación</a>
+      <a href="#celebraciones" onclick="closeMobileMenu()">Celebraciones</a>
+      <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
   </header>
 
-  <section id="inicio" class="relative">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-      <div class="grid items-center gap-10 lg:grid-cols-2">
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section id="inicio" class="hero">
+    <div class="hero-inner">
+      <!-- Left -->
+      <div>
+        <div class="hero-pill">🍔 Hamburguesas · 🌭 Perros · 🥤 Bebidas</div>
+        <h1>OG Burger<span>Sabor con actitud</span></h1>
+        <p>Hamburguesas artesanales, perros gourmet y bebidas frías. 100% carne de res, ingredientes frescos y una sazón que no se olvida.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn-red">Ver menú completo</a>
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%94%A5"
+            class="btn-ghost" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp" style="color:#25D366"></i> Pedir por WhatsApp
+          </a>
+        </div>
+        <div class="hero-meta">
+          <span>📍 Engativá · Álamos Norte</span>
+          <span>🛵 Domicilios disponibles</span>
+          <span>🔥 Hecho con actitud</span>
+        </div>
+      </div>
+
+      <!-- Right visual -->
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-img">
+            <img src="img/hero-burger.jpg" alt="Hamburguesa OG Burger"
+              onerror="this.src='img/og-bestia.jpg';" />
+            <div class="hero-img-overlay" aria-hidden="true"></div>
+            <div class="hero-logo-float" aria-hidden="true">
+              <img src="img/ogLogo.jpg" alt=""
+                onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-family:var(--font-display);font-size:1.5rem;color:#000&quot;>OG</span>';" />
+            </div>
+            <div class="hero-card-info">
+              <small>OG Burger</small>
+              <strong>Pide tu favorito hoy</strong>
+              <p>Combos, clásicos y opciones con full sabor.</p>
+            </div>
+          </div>
+        </div>
+        <button class="hero-cta-float" id="floatingOrderBtn" type="button" aria-label="Pedir ahora">
+          🔥 Pedir ahora
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ DESTACADOS ═══════════════════════ -->
+  <section id="destacados" class="featured-section">
+    <div class="featured-inner">
+      <div class="featured-header">
         <div>
-          <div class="inline-flex items-center rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-200">
-            🍔 Hamburguesas • 🌭 Perros • 🥤 Bebidas
+          <p class="section-label">Favoritos del momento</p>
+          <h2 class="section-title">Destacados OG</h2>
+        </div>
+        <div class="featured-nav" aria-label="Navegación del carrusel">
+          <button id="prevFeatured" aria-label="Anterior">←</button>
+          <button id="nextFeatured" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+      <div id="featuredTrack" class="featured-track" role="list" aria-label="Productos destacados"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ MENÚ ═══════════════════════ -->
+  <section id="menu" class="menu-section">
+    <div class="menu-inner">
+      <div class="menu-top">
+        <div>
+          <p class="section-label">Carta completa</p>
+          <h2 class="section-title">Nuestro Menú</h2>
+          <p class="section-sub">Elige tu próximo favorito.</p>
+        </div>
+        <div class="search-wrap" role="search">
+          <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+          <input id="searchInput" type="search" placeholder="Buscar producto..." aria-label="Buscar en el menú" />
+        </div>
+      </div>
+
+      <div class="filter-group" role="group" aria-label="Filtrar por categoría" id="filtros"></div>
+
+      <div class="menu-meta">
+        <span class="menu-status" id="menuStatus" aria-live="polite">Cargando…</span>
+      </div>
+
+      <div id="menuGrid" class="menu-grid" role="list"></div>
+      <div id="noResults" class="no-results" aria-live="polite">
+        😕 No encontramos productos con ese filtro o búsqueda.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ UBICACIÓN + CELEBRACIONES ═══════════════════════ -->
+  <section id="ubicacion" class="location-section">
+    <div class="location-inner">
+
+      <!-- Ubicación -->
+      <div class="location-card">
+        <p class="section-label">Dónde encontrarnos</p>
+        <h2 class="section-title" style="margin-bottom:24px;">Visítanos</h2>
+
+        <div class="location-item">
+          <div class="location-icon">📍</div>
+          <div class="location-item-text">
+            <strong>Dirección</strong>
+            <span>Carrera 101 # 73-09, Bogotá<br>Engativá · Álamos Norte</span>
           </div>
-
-          <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white">
-            OG Burger
-            <span class="block text-red-500">Sabor con actitud</span>
-          </h1>
-
-          <p class="mt-5 max-w-xl text-base sm:text-lg text-white/85 leading-relaxed">
-            Descubre nuestras hamburguesas, perros y bebidas. Pide por WhatsApp o visítanos y disfruta una experiencia OG.
-          </p>
-
-          <div class="mt-8 flex flex-col sm:flex-row gap-4">
-            <a href="#menu" class="inline-flex items-center justify-center rounded-xl bg-og.red px-6 py-3 font-bold text-white hover:bg-red-700 transition shadow-og">
-              Ver menú
-            </a>
-            <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
-              class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 px-6 py-3 font-semibold text-white hover:border-red-500 hover:text-red-300 transition"
-              target="_blank" rel="noopener noreferrer">
-              Pedir por WhatsApp
-            </a>
+        </div>
+        <div class="location-item">
+          <div class="location-icon">🕒</div>
+          <div class="location-item-text">
+            <strong>Horario</strong>
+            <span>Martes a domingo · 3:00 pm – 10:00 pm</span>
           </div>
-
-          <div class="mt-8 flex flex-wrap gap-6 text-sm text-white/75">
-            <div>📍 Engativá · Álamos Norte</div>
-            <div>🛵 Domicilios</div>
-            <div>🔥 Hecho con actitud</div>
+        </div>
+        <div class="location-item">
+          <div class="location-icon">🛵</div>
+          <div class="location-item-text">
+            <strong>Domicilios</strong>
+            <span>Consulta cobertura por WhatsApp</span>
           </div>
         </div>
 
-        <div class="relative">
-          <div class="rounded-3xl border border-white/10 bg-og.panel p-4 shadow-2xl">
-            <div class="relative overflow-hidden rounded-2xl border border-white/10">
-              <img src="img/hero-burger.jpg" alt="Hamburguesa OG Burger" class="aspect-[4/5] w-full object-cover"
-                onerror="this.src='img/og-bestia.jpg';" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+        <div class="map-wrap">
+          <iframe
+            title="Mapa OG Burger"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2276.793293616296!2d-74.11608471402627!3d4.703362368997547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b184e8fd67b%3A0xea012beaa7c8954d!2sO.G.%20Burger!5e0!3m2!1ses!2sco!4v1772053767414!5m2!1ses!2sco">
+          </iframe>
+        </div>
 
-              <div class="absolute top-4 left-4 h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-white p-2 shadow-og animate-floatSlow grid place-items-center">
-                <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
-                  onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-xl font-black text-black&quot;>OG</span>';" />
-              </div>
+        <div class="location-btns">
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%94%A5"
+            target="_blank" rel="noopener noreferrer" class="btn-red">
+            <i class="fa-brands fa-whatsapp"></i> Pedir ahora
+          </a>
+          <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+            <i class="fa-solid fa-map-location-dot"></i> Cómo llegar
+          </a>
+        </div>
+      </div>
 
-              <div class="absolute bottom-4 left-4 right-4">
-                <div class="rounded-2xl border border-white/10 bg-black/70 p-4 backdrop-blur">
-                  <p class="text-xs text-white/70 uppercase tracking-widest">OG Burger</p>
-                  <p class="mt-1 text-lg sm:text-xl font-bold text-white">Pide tu favorito hoy</p>
-                  <p class="text-sm text-white/80">Combos, clásicos y opciones con full sabor.</p>
-                </div>
-              </div>
+      <!-- ── CELEBRACIONES ── -->
+      <div id="celebraciones" class="birthday-card">
+        <div class="birthday-bg" aria-hidden="true"></div>
+        <div class="birthday-grid" aria-hidden="true"></div>
+        <div class="birthday-badge">¡Reserva tu fecha!</div>
+
+        <div class="birthday-content">
+          <div class="birthday-emoji-row" aria-hidden="true">🎂 🎉 🍔 🎈</div>
+
+          <h2 class="birthday-title">Celebra tu<br><span>cumpleaños</span><br>con OG</h2>
+
+          <p class="birthday-desc">
+            Haz tu reunión, cumpleaños o evento especial en nuestro local o pide domicilio para el grupo. Nos adaptamos a lo que necesites.
+          </p>
+
+          <div class="birthday-features" role="list">
+            <div class="birthday-feature" role="listitem">
+              <div class="feature-dot"></div>
+              <span>Menú especial para grupos</span>
+            </div>
+            <div class="birthday-feature" role="listitem">
+              <div class="feature-dot"></div>
+              <span>Atención personalizada</span>
+            </div>
+            <div class="birthday-feature" role="listitem">
+              <div class="feature-dot"></div>
+              <span>Domicilio a tu lugar de fiesta</span>
+            </div>
+            <div class="birthday-feature" role="listitem">
+              <div class="feature-dot"></div>
+              <span>Coordinamos todo por WhatsApp</span>
             </div>
           </div>
 
-          <button id="floatingOrderBtn"
-            class="absolute -bottom-4 -right-4 rounded-2xl border border-white/10 bg-og.red px-4 py-3 text-sm font-bold text-white shadow-og hover:bg-red-700 transition animate-pulseSoft"
-            type="button">Pedir ahora</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="destacados" class="py-12 sm:py-16 border-t border-white/10 bg-black/30">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between gap-4">
-        <div>
-          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Favoritos</p>
-          <h2 class="mt-2 text-3xl sm:text-4xl font-black text-white">Destacados OG</h2>
-        </div>
-
-        <div class="hidden sm:flex items-center gap-2">
-          <button id="prevFeatured" class="rounded-xl border border-white/20 bg-black/30 px-3 py-2 hover:border-red-500 transition">←</button>
-          <button id="nextFeatured" class="rounded-xl border border-white/20 bg-black/30 px-3 py-2 hover:border-red-500 transition">→</button>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <div
-          id="featuredViewport"
-          class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-3
-                 [-ms-overflow-style:none] [scrollbar-width:none]"
-        ></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="menu" class="py-14 sm:py-20 border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-        <div>
-          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Carta</p>
-          <h2 class="mt-2 text-3xl sm:text-4xl font-black text-white">Nuestro menú</h2>
-          <p class="mt-3 text-white/80 max-w-2xl">Explora nuestras opciones y elige tu próximo favorito.</p>
-        </div>
-
-        <div id="filtros" class="flex flex-wrap gap-2">
-          <button data-cat="hamburguesas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-red-500 bg-red-500 text-white">Hamburguesas</button>
-          <button data-cat="entradas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Entradas</button>
-          <button data-cat="perros" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Perros</button>
-          <button data-cat="bebidas" class="filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500">Bebidas</button>
-        </div>
-      </div>
-
-      <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-        <p id="menuStatus" class="text-sm text-white/70">Cargando menú...</p>
-
-        <div class="relative w-full sm:w-80">
-          <input id="searchInput" type="text" placeholder="Buscar producto..."
-            class="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-2.5 text-white placeholder:text-white/40 focus:border-red-500 focus:outline-none" />
-          <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/40">⌕</span>
-        </div>
-      </div>
-
-      <div id="menuGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
-
-      <div id="noResults" class="hidden mt-8 rounded-2xl border border-white/10 bg-og.panel p-6 text-center text-white/80">
-        No encontramos productos con ese filtro o búsqueda.
-      </div>
-    </div>
-  </section>
-
-  <section id="ubicacion" class="py-14 sm:py-20 border-t border-white/10 bg-og.black2/95">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-8 lg:grid-cols-2">
-        <div class="rounded-3xl border border-white/10 bg-og.panel p-6 sm:p-8">
-          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Ubicación</p>
-          <h2 class="mt-2 text-3xl font-black text-white">Visítanos</h2>
-
-          <div class="mt-6 space-y-4 text-white/90">
-            <p>📍 Engativá <span class="text-white/60">Carrera 101 # 73-09</span></p>
-            <p>📍 Zona: Bogotá · Álamos Norte</p>
-            <p>🕒 Horario: <span class="text-white/70">Martes a domingo · 3:00 pm. a 10:00 pm.</span></p>
-            <p>🛵 Domicilios: <span class="text-white/70">consulta cobertura por WhatsApp</span></p>
-          </div>
-
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
-              target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center justify-center rounded-xl bg-og.red px-5 py-3 font-bold text-white hover:bg-red-700 transition">
-              Pedir ahora
-            </a>
-            <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/30 px-5 py-3 font-semibold text-white hover:border-red-500 hover:text-red-300 transition">
-              Ver Instagram
-            </a>
-          </div>
-        </div>
-
-        <div id="contacto" class="rounded-3xl border border-white/10 bg-og.panel p-6 sm:p-8">
-          <p class="text-red-400 font-semibold text-sm uppercase tracking-widest">Celebraciones</p>
-          <h2 class="mt-2 text-3xl font-black text-white">Celebra tu cumpleaños o reuniones</h2>
-          <p class="mt-3 text-white/85">
-            Reserva con nosotros para cumpleaños, reuniones o eventos. Escríbenos por WhatsApp y coordinamos.
-          </p>
-
-          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20reservar%20para%20cumplea%C3%B1os%20o%20reuni%C3%B3n"
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger%20%F0%9F%8E%82%20Quiero%20reservar%20para%20un%20cumplea%C3%B1os%20o%20reuni%C3%B3n.%20Me%20puedes%20dar%20m%C3%A1s%20info%3F"
             target="_blank" rel="noopener noreferrer"
-            class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-og.red px-5 py-3 font-semibold text-white hover:bg-red-700 transition">
-            Hablar por WhatsApp
+            class="birthday-cta">
+            <i class="fa-brands fa-whatsapp wa-icon"></i>
+            Reservar por WhatsApp
           </a>
         </div>
       </div>
+
     </div>
   </section>
 
-  <footer class="border-t border-white/10 py-10 bg-black/70">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-8 lg:grid-cols-3">
-        <div class="flex items-center gap-3">
-          <div class="grid h-10 w-10 place-items-center rounded-full bg-white p-1 overflow-hidden">
-            <img src="img/ogLogo.jpg" alt="Logo OG Burger" class="h-full w-full object-contain rounded-full"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;text-sm font-black text-black&quot;>OG</span>';" />
-          </div>
-          <div>
-            <p class="font-semibold text-white">OG Burger</p>
-            <p class="text-sm text-white/65">© 2026 · Todos los derechos reservados</p>
-          </div>
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="logo-badge" style="width:48px;height:48px;margin-bottom:14px;">
+          <img src="img/ogLogo.jpg" alt="Logo OG Burger"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-family:var(--font-display);font-size:1.2rem;color:#000&quot;>OG</span>';" />
         </div>
+        <div class="footer-brand">
+          <strong>OG Burger</strong>
+          <span>100% Carne · 200% Sabor</span>
+        </div>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.25);margin-top:16px;">© 2026 · Todos los derechos reservados</p>
+      </div>
 
-        <div>
-          <p class="text-sm font-semibold text-white">Dirección</p>
-          <p class="mt-2 text-sm text-white/70">Engativá · Carrera 101 # 73-09, Bogotá (Álamos Norte)</p>
-          <div class="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-black/30">
-            <iframe
-              title="Mapa OG Burger"
-              class="h-56 w-full"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              style="border:0;"
-              allowfullscreen
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2276.793293616296!2d-74.11608471402627!3d4.703362368997547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b184e8fd67b%3A0xea012beaa7c8954d!2sO.G.%20Burger!5e0!3m2!1ses!2sco!4v1772053767414!5m2!1ses!2sco">
-            </iframe>
-          </div>
-          <a class="mt-3 inline-flex items-center rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white hover:border-red-500 hover:text-red-300 transition"
-             href="https://maps.app.goo.gl/RBSubztSCbPcpXro6"
-             target="_blank" rel="noopener noreferrer">
-            Abrir en Google Maps
+      <div>
+        <p class="footer-title">Dirección y horario</p>
+        <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">
+          Carrera 101 # 73-09, Bogotá · Engativá, Álamos Norte<br>
+          Martes a domingo · 3:00 pm – 10:00 pm
+        </p>
+        <div class="map-wrap" style="margin-top:16px;">
+          <iframe
+            title="Mapa OG Burger Footer"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2276.793293616296!2d-74.11608471402627!3d4.703362368997547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9b184e8fd67b%3A0xea012beaa7c8954d!2sO.G.%20Burger!5e0!3m2!1ses!2sco!4v1772053767414!5m2!1ses!2sco">
+          </iframe>
+        </div>
+        <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer"
+          class="btn-ghost" style="margin-top:12px;font-size:.8rem;">
+          <i class="fa-solid fa-map-location-dot"></i> Abrir en Google Maps
+        </a>
+      </div>
+
+      <div>
+        <p class="footer-title">Contacto y redes</p>
+        <div class="footer-links">
+          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram" style="width:18px;"></i> Instagram
           </a>
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp" style="width:18px;color:#25D366;"></i> WhatsApp
+          </a>
+          <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-map-location-dot" style="width:18px;"></i> Cómo llegar
+          </a>
+          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%94%A5" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-bag-shopping" style="width:18px;"></i> Hacer pedido
+          </a>
+          <a href="/admin/login" aria-label="Acceso administrativo" style="color:rgba(255,255,255,.15);margin-top:12px;font-size:.72rem;">·</a>
         </div>
+      </div>
+    </div>
 
-        <div class="flex flex-col gap-2 text-sm">
-          <a href="https://www.instagram.com/o.g_burger_/" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">Instagram</a>
-          <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">WhatsApp</a>
-          <a href="https://maps.app.goo.gl/RBSubztSCbPcpXro6" target="_blank" rel="noopener noreferrer" class="text-white/85 hover:text-red-400 transition">Cómo llegar</a>
-          <a href="/admin/login" class="text-white/25 hover:text-white/60 transition" aria-label="Acceso administrativo" title="Acceso administrativo">·</a>
-        </div>
+    <div class="footer-inner" style="padding-top:0;">
+      <div class="footer-bottom" style="grid-column:1/-1;">
+        <span>Hecho con 🔥 en Bogotá, Colombia</span>
+        <span>OG Burger · Engativá · Álamos Norte</span>
       </div>
     </div>
   </footer>
 
-  <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger,%20quiero%20hacer%20un%20pedido"
+  <!-- ═══════════════════════ WHATSAPP FLOTANTE ═══════════════════════ -->
+  <a href="https://wa.me/573227912291?text=Hola%20OG%20Burger%2C%20quiero%20hacer%20un%20pedido%20%F0%9F%94%A5"
     target="_blank" rel="noopener noreferrer"
-    class="fixed bottom-5 left-5 z-40 inline-flex items-center gap-2 rounded-full border border-white/10 bg-og.red px-4 py-3 text-sm font-bold text-white shadow-og hover:bg-red-700 transition"
-    aria-label="Pedir por WhatsApp">
-    <span>💬</span>
-    <span class="hidden sm:inline">Pedir por WhatsApp</span>
+    class="wa-float" aria-label="Pedir por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>Pedir por WhatsApp</span>
   </a>
 
-  <!-- Modal -->
-  <div id="productModal" class="fixed inset-0 z-[9999] hidden">
-    <div id="modalOverlay" class="absolute inset-0 bg-black/90 backdrop-blur-sm"></div>
-
-    <div class="absolute inset-0 flex items-center justify-center p-3 sm:p-6">
-      <div class="w-full max-w-xl rounded-2xl border border-white/10 bg-og.panel shadow-2xl overflow-hidden">
-        <div class="flex items-center justify-between border-b border-white/10 px-4 py-3">
-          <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-white">Producto</h3>
-          <button id="closeModalBtn" type="button"
-            class="rounded-lg border border-white/15 bg-black/30 px-3 py-1.5 text-sm text-white hover:border-red-500 transition">
-            Cerrar
-          </button>
+  <!-- ═══════════════════════ MODAL ═══════════════════════ -->
+  <div id="productModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitle">Producto</h3>
+        <button class="modal-close" id="closeModalBtn" type="button">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-img">
+          <img id="modalImage" src="" alt="" />
         </div>
-
-        <div class="max-h-[80vh] overflow-y-auto">
-          <div class="grid md:grid-cols-2">
-            <div class="bg-black/40">
-              <img id="modalImage" src="" alt="" class="h-52 w-full object-cover md:h-full" />
-            </div>
-
-            <div class="p-4 sm:p-5">
-              <p id="modalCategory" class="text-xs uppercase tracking-widest text-red-300"></p>
-              <p id="modalName" class="mt-1 text-2xl font-black text-white"></p>
-
-              <div class="mt-3 flex flex-wrap items-center gap-2">
-                <span id="modalPrice" class="rounded-lg bg-og.red px-3 py-1 text-sm font-bold text-white"></span>
-                <span id="modalCombo" class="hidden rounded-lg bg-white text-black px-3 py-1 text-sm font-bold"></span>
-              </div>
-
-              <p id="modalDesc" class="mt-4 text-white/85 leading-relaxed"></p>
-
-              <div class="mt-5 flex flex-col gap-3">
-                <a id="modalOrderBtn" href="#" target="_blank" rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center rounded-xl bg-og.red px-4 py-3 font-semibold text-white hover:bg-red-700 transition">
-                  Pedir por WhatsApp
-                </a>
-
-                <button id="modalCloseSecondary" type="button"
-                  class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/30 px-4 py-3 font-semibold text-white hover:border-red-500 transition">
-                  Cerrar
-                </button>
-              </div>
-            </div>
+        <div class="modal-info">
+          <p class="modal-cat" id="modalCategory"></p>
+          <p class="modal-name" id="modalName"></p>
+          <div class="modal-prices">
+            <span class="prod-price-main" id="modalPrice"></span>
+            <span class="prod-price-combo" id="modalCombo" style="display:none;"></span>
+          </div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <div class="modal-actions">
+            <a id="modalOrderBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-red">
+              <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
+            </a>
+            <button id="modalCloseSecondary" type="button" class="btn-ghost" style="justify-content:center;">
+              Cerrar
+            </button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
+  <!-- ═══════════════════════ SCRIPT ═══════════════════════ -->
   <script>
-    const WHATSAPP_NUMBER = "573227912291";
+    /* ─── CONFIG ─── */
+    const WA_NUMBER = "573227912291";
 
-    const menuData = {
-      productos: [
-        { categoria: "entradas", nombre: "Nachos para compartir", precio: 16000, descripcion: "Totopos de maíz, frijol refrito, salsa de queso cheddar, guacamole fresco, pico de gallo y queso crema.", imagen: "img/nachos.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Clásica", precio: 14000, combo: 20000, descripcion: "Carne 100% de res, queso cheddar suave, lechuga fresca, tomate, cebolla caramelizada, pepinillos y salsa OG en pan brioche.", imagen: "img/og-clasica.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Quesuda", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, mix de quesos cheddar y mozzarella, tocineta, cebolla caramelizada, salsa de queso cheddar, queso crema, lechuga, tomate y pan artesanal.", imagen: "img/og-quesuda.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Criolla", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, queso mozzarella, hogao, maíz tierno, huevo frito, tocineta, lechuga, tomate y salsa OG.", imagen: "img/og-criolla.jpg", destacado: false },
-        { categoria: "hamburguesas", nombre: "OG Mexicana 🌶️", precio: 22000, combo: 28000, descripcion: "Carne 100% de res, frijol refrito, queso mozzarella, guacamole fresco, chorizo santarosano, pico de gallo, queso crema y salsa picante en pan brioche.", imagen: "img/og-mexicana.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Crispy", precio: 24000, combo: 30000, descripcion: "Carne 100% de res, queso cheddar, tocineta crujiente, cebolla crispy y salsa BBQ en pan brioche.", imagen: "img/og-crispy.jpg", destacado: false },
-        { categoria: "hamburguesas", nombre: "OG Explosiva", precio: 26000, combo: 32000, descripcion: "Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", imagen: "img/og-explosiva.jpg", destacado: true },
-        { categoria: "hamburguesas", nombre: "OG Bestia", precio: 26000, combo: 32000, descripcion: "Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", imagen: "img/og-bestia.jpg", destacado: true },
-        { categoria: "perros", nombre: "OG Clásico", precio: 14000, combo: 20000, descripcion: "Salchicha premium, cebolla caramelizada, papitas, tocineta y queso cheddar en pan brioche.", imagen: "img/perro-clasico.jpg", destacado: false },
-        { categoria: "perros", nombre: "OG Mexicano 🌶️", precio: 20000, combo: 26000, descripcion: "Salchicha premium, frijol refrito, queso mozzarella, guacamole fresco, pico de gallo, queso crema y picante en pan brioche.", imagen: "img/perro-mexicano.jpg", destacado: true },
-        { categoria: "bebidas", nombre: "Club Colombia", precio: 4500, imagen: "img/club-colombia.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coronita", precio: 5000, imagen: "img/coronita.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Águila", precio: 3500, imagen: "img/aguila.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Águila Light", precio: 3700, imagen: "img/aguila-light.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Agua", precio: 3000, imagen: "img/agua.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coca Cola", precio: 4500, imagen: "img/cocacola.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Coca Cola Zero", precio: 4500, imagen: "img/cocacola-zero.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Colombiana", precio: 3500, imagen: "img/colombiana.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Manzana", precio: 3500, imagen: "img/manzana.jpg", destacado: false },
-        { categoria: "bebidas", nombre: "Jugo Hit", precio: 4000, imagen: "img/jugo-hit.jpg", destacado: false }
-      ]
-    };
-
-    const $ = (id) => document.getElementById(id);
-
-    let currentCategory = "hamburguesas";
-    let currentSearch = "";
-
-    function money(n) {
-      return new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(n);
+    function waLink(msg) {
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
     }
 
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    /* ─── DATA ─── */
+    const MENU = [
+      { cat:"entradas",      name:"Nachos para compartir", price:16000,            desc:"Totopos de maíz, frijol refrito, salsa de queso cheddar, guacamole fresco, pico de gallo y queso crema.", img:"img/nachos.jpg",         featured:true  },
+      { cat:"hamburguesas",  name:"OG Clásica",            price:14000, combo:20000, desc:"Carne 100% de res, queso cheddar suave, lechuga fresca, tomate, cebolla caramelizada, pepinillos y salsa OG en pan brioche.", img:"img/og-clasica.jpg",   featured:true  },
+      { cat:"hamburguesas",  name:"OG Quesuda",            price:22000, combo:28000, desc:"Carne 100% de res, mix de quesos cheddar y mozzarella, tocineta, cebolla caramelizada, salsa de queso cheddar, queso crema, lechuga, tomate y pan artesanal.", img:"img/og-quesuda.jpg",  featured:true  },
+      { cat:"hamburguesas",  name:"OG Criolla",            price:22000, combo:28000, desc:"Carne 100% de res, queso mozzarella, hogao, maíz tierno, huevo frito, tocineta, lechuga, tomate y salsa OG.", img:"img/og-criolla.jpg",   featured:false },
+      { cat:"hamburguesas",  name:"OG Mexicana 🌶️",       price:22000, combo:28000, desc:"Carne 100% de res, frijol refrito, queso mozzarella, guacamole fresco, chorizo santarosano, pico de gallo, queso crema y salsa picante en pan brioche.", img:"img/og-mexicana.jpg", featured:true  },
+      { cat:"hamburguesas",  name:"OG Crispy",             price:24000, combo:30000, desc:"Carne 100% de res, queso cheddar, tocineta crujiente, cebolla crispy y salsa BBQ en pan brioche.", img:"img/og-crispy.jpg",    featured:false },
+      { cat:"hamburguesas",  name:"OG Explosiva",          price:26000, combo:32000, desc:"Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", img:"img/og-explosiva.jpg", featured:true  },
+      { cat:"hamburguesas",  name:"OG Bestia",             price:26000, combo:32000, desc:"Doble carne, doble queso suizo, tocineta crujiente, cebolla morada caramelizada, pepinillos y salsa especial OG.", img:"img/og-bestia.jpg",    featured:true  },
+      { cat:"perros",        name:"OG Clásico",            price:14000, combo:20000, desc:"Salchicha premium, cebolla caramelizada, papitas, tocineta y queso cheddar en pan brioche.", img:"img/perro-clasico.jpg",  featured:false },
+      { cat:"perros",        name:"OG Mexicano 🌶️",       price:20000, combo:26000, desc:"Salchicha premium, frijol refrito, queso mozzarella, guacamole fresco, pico de gallo, queso crema y picante en pan brioche.", img:"img/perro-mexicano.jpg", featured:true  },
+      { cat:"bebidas",       name:"Club Colombia",         price:4500,               img:"img/club-colombia.jpg",  featured:false },
+      { cat:"bebidas",       name:"Coronita",              price:5000,               img:"img/coronita.jpg",        featured:false },
+      { cat:"bebidas",       name:"Águila",                price:3500,               img:"img/aguila.jpg",          featured:false },
+      { cat:"bebidas",       name:"Águila Light",          price:3700,               img:"img/aguila-light.jpg",    featured:false },
+      { cat:"bebidas",       name:"Agua",                  price:3000,               img:"img/agua.jpg",            featured:false },
+      { cat:"bebidas",       name:"Coca Cola",             price:4500,               img:"img/cocacola.jpg",        featured:false },
+      { cat:"bebidas",       name:"Coca Cola Zero",        price:4500,               img:"img/cocacola-zero.jpg",   featured:false },
+      { cat:"bebidas",       name:"Colombiana",            price:3500,               img:"img/colombiana.jpg",      featured:false },
+      { cat:"bebidas",       name:"Manzana",               price:3500,               img:"img/manzana.jpg",         featured:false },
+      { cat:"bebidas",       name:"Jugo Hit",              price:4000,               img:"img/jugo-hit.jpg",        featured:false },
+    ];
+
+    const CATS = [
+      { key:"hamburguesas", label:"Hamburguesas" },
+      { key:"entradas",     label:"Entradas"     },
+      { key:"perros",       label:"Perros"       },
+      { key:"bebidas",      label:"Bebidas"      },
+    ];
+
+    /* ─── STATE ─── */
+    let activeCat = "hamburguesas";
+    let search    = "";
+
+    /* ─── UTILS ─── */
+    const $ = id => document.getElementById(id);
+    const fmt = n => new Intl.NumberFormat("es-CO", { style:"currency", currency:"COP", maximumFractionDigits:0 }).format(n);
+    const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+
+    /* ─── FILTERS ─── */
+    function renderFilters() {
+      $("filtros").innerHTML = CATS.map(c => `
+        <button
+          type="button"
+          class="filter-btn${c.key === activeCat ? " active" : ""}"
+          data-cat="${c.key}"
+          aria-pressed="${c.key === activeCat}"
+        >${c.label}</button>
+      `).join("");
     }
 
-    function buildWhatsAppLink(text) {
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    }
-
-    function getFilteredProducts() {
-      return menuData.productos.filter((p) => {
-        const byCategory = p.categoria === currentCategory;
-        const searchable = `${p.nombre} ${p.descripcion || ""} ${p.categoria}`.toLowerCase();
-        const bySearch = searchable.includes(currentSearch.toLowerCase().trim());
-        return byCategory && bySearch;
+    /* ─── MENU GRID ─── */
+    function filteredProducts() {
+      return MENU.filter(p => {
+        if (p.cat !== activeCat) return false;
+        if (!search) return true;
+        return `${p.name} ${p.desc ?? ""}`.toLowerCase().includes(search.toLowerCase().trim());
       });
     }
 
-    function cardMenu(item) {
-      const nombre = escapeHtml(item.nombre);
-      const descripcion = escapeHtml(item.descripcion || "");
-      const precio = money(item.precio);
-      const combo = item.combo ? `<div class="rounded-lg bg-white text-black px-3 py-1 text-xs sm:text-sm font-bold">Combo ${money(item.combo)}</div>` : "";
-      const categoriaBadge = `<span class="inline-flex items-center rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/80">${escapeHtml(item.categoria)}</span>`;
-      const imgSrc = escapeHtml(item.imagen || "");
-      const fallbackText = escapeHtml(item.nombre);
+    function productCard(item) {
+      const n   = esc(item.name);
+      const img = esc(item.img ?? "");
+      const d   = esc(item.desc ?? "");
+      const combo = item.combo
+        ? `<span class="prod-price-combo">Combo ${fmt(item.combo)}</span>` : "";
 
       return `
-        <article class="group rounded-2xl border border-white/10 bg-og.panel p-4 hover:border-red-500/40 transition overflow-hidden">
-          <div class="relative mb-4 overflow-hidden rounded-xl border border-white/10 bg-black/40">
-            <img src="${imgSrc}" alt="${nombre}" class="h-48 w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy"
-              onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
-            <div class="hidden h-48 w-full grid place-items-center text-white/45 text-sm bg-black/50">Foto de ${fallbackText}</div>
-            <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/70 to-transparent">${categoriaBadge}</div>
+        <article class="prod-card" role="listitem">
+          <div class="prod-img-wrap">
+            <img src="${img}" alt="${n}" loading="lazy"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+            <div class="prod-img-fallback">Sin foto</div>
+            <div class="prod-img-overlay" aria-hidden="true"></div>
+            <span class="prod-img-badge">${esc(item.cat)}</span>
           </div>
-
-          <div class="flex items-start justify-between gap-3">
-            <h4 class="text-lg sm:text-xl font-extrabold text-white leading-tight">${nombre}</h4>
-            <div class="text-right space-y-2 shrink-0">
-              <div class="rounded-lg bg-og.red px-3 py-1 text-xs sm:text-sm font-bold text-white">${precio}</div>
-              ${combo}
+          <div class="prod-body">
+            <div class="prod-top">
+              <h3 class="prod-name">${n}</h3>
+              <div class="prod-prices">
+                <span class="prod-price-main">${fmt(item.price)}</span>
+                ${combo}
+              </div>
             </div>
-          </div>
-
-          ${descripcion ? `<p class="mt-3 text-sm text-white/85 leading-relaxed">${descripcion}</p>` : ""}
-
-          <div class="mt-4 flex gap-2">
-            <a href="${buildWhatsAppLink(`Hola OG Burger, quiero pedir: ${item.nombre}`)}" target="_blank" rel="noopener noreferrer"
-              class="inline-flex flex-1 items-center justify-center rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition">
-              Pedir
-            </a>
-            <button
-              type="button"
-              class="inline-flex items-center justify-center rounded-xl border border-white/15 bg-black/30 px-4 py-2.5 text-sm font-semibold text-white hover:border-red-500 hover:text-red-300 transition"
-              data-view
-              data-name="${encodeURIComponent(item.nombre)}"
-            >
-              Ver más
-            </button>
+            ${d ? `<p class="prod-desc">${d}</p>` : ""}
+            <div class="prod-actions">
+              <a href="${waLink(`Hola OG Burger 🔥, quiero pedir: ${item.name}`)}"
+                target="_blank" rel="noopener noreferrer"
+                class="prod-btn-order">
+                <i class="fa-brands fa-whatsapp"></i> Pedir
+              </a>
+              <button type="button" class="prod-btn-detail" data-view data-name="${encodeURIComponent(item.name)}">
+                Ver más
+              </button>
+            </div>
           </div>
         </article>
       `;
     }
 
-    function renderMenuGrid() {
-      const products = getFilteredProducts();
-      $("menuGrid").innerHTML = products.map(cardMenu).join("");
-      $("noResults").classList.toggle("hidden", products.length !== 0);
-      $("menuStatus").textContent = `${products.length} producto(s) encontrado(s)`;
+    function renderMenu() {
+      const products = filteredProducts();
+      $("menuGrid").innerHTML = products.map(productCard).join("");
+      $("noResults").style.display = products.length ? "none" : "block";
+      $("menuStatus").textContent = `${products.length} producto${products.length !== 1 ? "s" : ""} encontrado${products.length !== 1 ? "s" : ""}`;
     }
 
-    function setActiveFilterButton() {
-      document.querySelectorAll(".filter-btn").forEach((btn) => {
-        const active = btn.dataset.cat === currentCategory;
-        btn.className = active
-          ? "filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-red-500 bg-red-500 text-white"
-          : "filter-btn rounded-xl px-4 py-2 text-sm font-semibold border border-white/20 bg-black/30 text-white hover:border-red-500";
-      });
-    }
-
+    /* ─── FEATURED ─── */
     function renderFeatured() {
-      const featured = menuData.productos.filter((p) => p.destacado);
-      const vp = $("featuredViewport");
-
-      vp.innerHTML = featured.map((item) => {
-        const nombre = escapeHtml(item.nombre);
-        const imgSrc = escapeHtml(item.imagen || "");
-        const desc = escapeHtml(item.descripcion || "Producto destacado OG Burger");
-
+      const featured = MENU.filter(p => p.featured);
+      $("featuredTrack").innerHTML = featured.map(item => {
+        const n   = esc(item.name);
+        const img = esc(item.img ?? "");
+        const d   = esc(item.desc ?? "Producto destacado OG Burger");
         return `
-          <article class="snap-start shrink-0 w-[85%] sm:w-[48%] lg:w-[32%] rounded-2xl border border-white/10 bg-og.panel p-4">
-            <div class="overflow-hidden rounded-xl border border-white/10 bg-black/30">
-              <img src="${imgSrc}" alt="${nombre}" class="h-48 w-full object-cover" loading="lazy"
-                onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" />
-              <div class="hidden h-48 w-full grid place-items-center text-white/45 text-sm bg-black/50">Foto de ${nombre}</div>
+          <article class="feat-card" role="listitem">
+            <div class="feat-card-img">
+              <img src="${img}" alt="${n}" loading="lazy"
+                onerror="this.style.display='none';" />
             </div>
-            <div class="mt-4 flex items-start justify-between gap-3">
-              <div>
-                <p class="text-lg font-bold text-white">${nombre}</p>
-                <p class="mt-1 text-sm text-white/75">${desc}</p>
+            <div class="feat-card-body">
+              <p class="feat-card-name">${n}</p>
+              <p class="feat-card-desc">${d}</p>
+              <div class="feat-card-price">
+                <span class="price-tag">${fmt(item.price)}</span>
+                ${item.combo ? `<span style="font-size:.78rem;color:rgba(255,255,255,.5);">Combo ${fmt(item.combo)}</span>` : ""}
               </div>
-              <span class="rounded-lg bg-og.red px-2.5 py-1 text-xs font-bold text-white">${money(item.precio)}</span>
             </div>
           </article>
         `;
       }).join("");
     }
 
-    function featuredScrollBy(direction) {
-      const vp = $("featuredViewport");
-      if (!vp) return;
-      const card = vp.querySelector("article");
-      const step = card ? card.getBoundingClientRect().width + 16 : vp.clientWidth * 0.85;
-      vp.scrollBy({ left: direction * step, behavior: "smooth" });
+    function scrollFeatured(dir) {
+      const track = $("featuredTrack");
+      const card  = track.querySelector("article");
+      const step  = card ? card.getBoundingClientRect().width + 16 : track.clientWidth * 0.85;
+      track.scrollBy({ left: dir * step, behavior: "smooth" });
     }
 
-    function openProductModalByItem(item) {
-      $("modalTitle").textContent = item.nombre || "Producto";
-      $("modalCategory").textContent = (item.categoria || "").toUpperCase();
-      $("modalName").textContent = item.nombre || "";
-      $("modalPrice").textContent = money(item.precio || 0);
+    /* ─── MODAL ─── */
+    function openModal(item) {
+      $("modalTitle").textContent    = item.name ?? "";
+      $("modalCategory").textContent = (item.cat ?? "").toUpperCase();
+      $("modalName").textContent     = item.name ?? "";
+      $("modalPrice").textContent    = fmt(item.price ?? 0);
 
       const comboEl = $("modalCombo");
-      if (item.combo) {
-        comboEl.textContent = `Combo ${money(item.combo)}`;
-        comboEl.classList.remove("hidden");
-      } else {
-        comboEl.classList.add("hidden");
-      }
+      if (item.combo) { comboEl.textContent = `Combo ${fmt(item.combo)}`; comboEl.style.display = ""; }
+      else            { comboEl.style.display = "none"; }
 
-      $("modalDesc").textContent = item.descripcion || "Consulta disponibilidad y detalles por WhatsApp.";
+      $("modalDesc").textContent = item.desc ?? "Consulta disponibilidad por WhatsApp.";
 
-      const modalImg = $("modalImage");
-      modalImg.src = item.imagen || "";
-      modalImg.alt = item.nombre || "Producto";
-      modalImg.onerror = function () {
-        this.src = "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80";
-      };
+      const mi = $("modalImage");
+      mi.src = item.img ?? "";
+      mi.alt = item.name ?? "";
+      mi.onerror = () => { mi.src = "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80"; };
 
-      $("modalOrderBtn").href = buildWhatsAppLink(`Hola OG Burger, quiero pedir: ${item.nombre}`);
-      $("productModal").classList.remove("hidden");
-      document.body.classList.add("overflow-hidden");
+      $("modalOrderBtn").href = waLink(`Hola OG Burger 🔥, quiero pedir: ${item.name}`);
+      $("productModal").classList.add("open");
+      document.body.style.overflow = "hidden";
     }
 
-    function closeProductModal() {
-      $("productModal")?.classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
+    function closeModal() {
+      $("productModal").classList.remove("open");
+      document.body.style.overflow = "";
     }
 
+    /* ─── MOBILE NAV ─── */
+    function closeMobileMenu() {
+      $("mobileNav").classList.remove("open");
+      $("mobileMenuBtn").setAttribute("aria-expanded", "false");
+    }
+
+    /* ─── EVENTS ─── */
     function wireEvents() {
-      $("mobileMenuBtn")?.addEventListener("click", () => $("mobileMenu")?.classList.toggle("hidden"));
-
-      $("floatingOrderBtn")?.addEventListener("click", () => {
-        window.open(buildWhatsAppLink("Hola OG Burger, quiero hacer un pedido"), "_blank");
+      /* Mobile menu */
+      $("mobileMenuBtn").addEventListener("click", () => {
+        const isOpen = $("mobileNav").classList.toggle("open");
+        $("mobileMenuBtn").setAttribute("aria-expanded", isOpen);
       });
 
-      $("filtros")?.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-cat]");
+      /* Close on outside click (mobile nav) */
+      document.addEventListener("click", e => {
+        if (!e.target.closest(".header")) closeMobileMenu();
+      });
+
+      /* Filter buttons */
+      $("filtros").addEventListener("click", e => {
+        const btn = e.target.closest(".filter-btn");
         if (!btn) return;
-        currentCategory = btn.dataset.cat;
-        setActiveFilterButton();
-        renderMenuGrid();
+        activeCat = btn.dataset.cat;
+        renderFilters();
+        renderMenu();
       });
 
-      $("searchInput")?.addEventListener("input", (e) => {
-        currentSearch = e.target.value || "";
-        renderMenuGrid();
+      /* Search */
+      $("searchInput").addEventListener("input", e => {
+        search = e.target.value ?? "";
+        renderMenu();
       });
 
-      $("nextFeatured")?.addEventListener("click", () => featuredScrollBy(1));
-      $("prevFeatured")?.addEventListener("click", () => featuredScrollBy(-1));
-
-      // Wheel horizontal en PC (trackpad/rueda) dentro del carrusel
-      $("featuredViewport")?.addEventListener("wheel", (e) => {
-        // Solo si el usuario intenta bajar/subir, lo convertimos a scroll horizontal
+      /* Featured carousel */
+      $("nextFeatured").addEventListener("click", () => scrollFeatured(1));
+      $("prevFeatured").addEventListener("click", () => scrollFeatured(-1));
+      $("featuredTrack").addEventListener("wheel", e => {
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
           e.preventDefault();
           e.currentTarget.scrollBy({ left: e.deltaY, behavior: "auto" });
         }
       }, { passive: false });
 
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-view]");
+      /* "Ver más" click → open modal */
+      document.addEventListener("click", e => {
+        const btn = e.target.closest("[data-view]");
         if (!btn) return;
-        const name = decodeURIComponent(btn.getAttribute("data-name") || "");
-        const item = menuData.productos.find(p => p.nombre === name);
-        if (item) openProductModalByItem(item);
+        const name = decodeURIComponent(btn.dataset.name ?? "");
+        const item = MENU.find(p => p.name === name);
+        if (item) openModal(item);
       });
 
-      $("closeModalBtn")?.addEventListener("click", closeProductModal);
-      $("modalCloseSecondary")?.addEventListener("click", closeProductModal);
-      $("modalOverlay")?.addEventListener("click", closeProductModal);
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeProductModal();
+      /* Floating "Pedir ahora" button */
+      $("floatingOrderBtn").addEventListener("click", () => {
+        window.open(waLink("Hola OG Burger 🔥, quiero hacer un pedido"), "_blank");
       });
+
+      /* Modal close */
+      $("closeModalBtn").addEventListener("click", closeModal);
+      $("modalCloseSecondary").addEventListener("click", closeModal);
+      $("productModal").addEventListener("click", e => {
+        if (e.target === $("productModal")) closeModal();
+      });
+      document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
     }
 
+    /* ─── INIT ─── */
     function init() {
+      renderFilters();
       renderFeatured();
-      setActiveFilterButton();
-      renderMenuGrid();
+      renderMenu();
       wireEvents();
-      $("menuStatus").textContent = `${menuData.productos.filter(p => p.categoria === currentCategory).length} producto(s) disponibles`;
+
+      /* Show Instagram button on md+ */
+      const mediaQuery = window.matchMedia("(min-width: 640px)");
+      const toggleIg = q => { $("igHeaderBtn").style.display = q.matches ? "" : "none"; };
+      toggleIg(mediaQuery);
+      mediaQuery.addEventListener("change", toggleIg);
     }
 
     document.addEventListener("DOMContentLoaded", init);
