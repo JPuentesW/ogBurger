@@ -237,7 +237,7 @@
     .feat-card:hover .feat-card-img img { transform: scale(1.06); }
     .feat-card-body { padding: 16px; }
     .feat-card-name { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: .02em; }
-   .feat-card-desc{display: -webkit-box;-webkit-box-orient: vertical;overflow: hidden;-webkit-line-clamp: 2;line-clamp: 2;}
+    .feat-card-desc { font-size: .82rem; color: var(--muted); margin-top: 6px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .feat-card-price { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
     .price-tag { background: var(--red-g); color: var(--white); padding: 5px 12px; border-radius: 8px; font-size: .82rem; font-weight: 800; }
 
@@ -281,7 +281,9 @@
 
     .prod-img-wrap { position: relative; overflow: hidden; }
     .prod-img-wrap img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .5s ease; }
+    .prod-img-wrap img.img-contain { object-fit: contain; padding: 16px; background: #0e0e0e; }
     .prod-card:hover .prod-img-wrap img { transform: scale(1.06); }
+    .prod-img-wrap img.img-contain:hover { transform: scale(1.04); }
     .prod-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 50%); }
     .prod-img-badge {
       position: absolute; bottom: 10px; left: 10px;
@@ -824,7 +826,7 @@
       { cat:"bebidas",       name:"Águila",                price:3500,               img:"img/aguila.jpg",          featured:false },
       { cat:"bebidas",       name:"Águila Light",          price:3700,               img:"img/aguila-light.jpg",    featured:false },
       { cat:"bebidas",       name:"Agua",                  price:3000,               img:"img/agua.jpg",            featured:false },
-      { cat:"bebidas",       name:"Coca Cola",             price:4500,               img:"img/cocacola.jpg",        featured:false },
+      { cat:"bebidas",       name:"Pepsi",                 price:4500,               img:"img/pepsi.jpg",           featured:false },
       { cat:"bebidas",       name:"Coca Cola Zero",        price:4500,               img:"img/cocacola-zero.jpg",   featured:false },
       { cat:"bebidas",       name:"Colombiana",            price:3500,               img:"img/colombiana.jpg",      featured:false },
       { cat:"bebidas",       name:"Manzana",               price:3500,               img:"img/manzana.jpg",         featured:false },
@@ -875,10 +877,11 @@
       const combo = item.combo
         ? `<span class="prod-price-combo">Combo ${fmt(item.combo)}</span>` : "";
 
+      const imgClass = item.cat === "bebidas" ? "img-contain" : "";
       return `
         <article class="prod-card" role="listitem">
           <div class="prod-img-wrap">
-            <img src="${img}" alt="${n}" loading="lazy"
+            <img src="${img}" alt="${n}" loading="lazy" class="${imgClass}"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
             <div class="prod-img-fallback">Sin foto</div>
             <div class="prod-img-overlay" aria-hidden="true"></div>
